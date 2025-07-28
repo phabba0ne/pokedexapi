@@ -1,0 +1,36 @@
+TODO 1 next : render 20 up to to 40 Pokémon Cards at a time
+-> ./scripts/render.js
+-> ./scripts/template.js
+-> ./modules/dataManager.js
+
+
+TODO 2 : button loadMore unten auf der Seite
+-> ./modules/renderManager.js
+
+TODO 3a : (user feedback) show stylish loading animation while loading data
+./modules/graphicsManager.js
+
+TODO 3b : (user feedback) deactivate button while loading
+./modules/graphicsManager.js
+
+TODO 3c : type in at least 3 letters to make search button appear
+-> ./modules/dataManager.js
+
+TODO 4a : load information for listView (capitalized name, type(s), img, type-fitting background-colors, ID, ...)
+-> ./modules/dataManager.js
+
+TODO 4b : glowing hover effect on each card (type-fitting)
+./modules/graphicsManager.js
+
+TODO 5a : open list view on cardListTemplate onclick
+./scripts/detail.js
+
+TODO 5b : close detailView onclick next to cart
+./scripts/detail.js
+
+TODO 5c : if detailView active, no scrolling possible
+./scripts/detail.js
+
+TODO 5d : show stats of pokémon (at least hp, attack, defense)
+./scripts/detail.js
+
