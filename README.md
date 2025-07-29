@@ -49,3 +49,12 @@ graphicsManager.js    # Loading spinner, effects, CSS hooks
 style.css             # Layout, theme, accessibility
 (...)
 
+MIT License © [Fabian Zeußel]
+Powered by PokéAPI and Chart.js
+
+⸻
+
+🙌 Credits
+	•	Data: PokéAPI
+	•	Charts: Chart.js
+	•	Icons/Sprites: Official Pokémon artwork (via PokéAPI)
