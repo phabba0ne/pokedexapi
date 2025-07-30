@@ -1,18 +1,40 @@
+/* Pokémon Card */
 .pokemonCard {
-  width: 180px;
-  border-radius: 1rem;
+  width: 100%;
+  max-width: 320px;
+  border-radius: 1.25rem;
   background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pokemonCard img {
+  width: clamp(160px, 40%, 240px);
+  height: auto;
+  margin-bottom: 1rem;
 }
 
 .pokemonCard:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.pokemonCard h2 {
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  color: #2a75bb;
+  margin-bottom: 0.25em;
+  font-family: var(--fontTitle);
+}
+
+.pokemonCard p {
+  font-size: clamp(0.9rem, 0.8rem + 0.4vw, 1rem);
+  color: #555;
 }
 
 .typeContainer {
@@ -22,10 +44,10 @@
 }
 
 .typeTag {
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
-  font-size: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: #fff;
-  background-color: #666;
   text-transform: capitalize;
 }

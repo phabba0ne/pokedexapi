@@ -3,7 +3,7 @@ export function cardTemplate(pokemon) {
   card.className = 'pokemonCard';
   card.innerHTML = `
     <h2>${pokemon.name}</h2>
-    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
+    <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" />
     <p>#${pokemon.id.toString().padStart(3, '0')}</p>
   `;
   return card;

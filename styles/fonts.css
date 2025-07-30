@@ -7,7 +7,7 @@ html {
   font-family: var(--fontBody);
 }
 
-h1, h2, h3 {
+h1{
   font-family: var(--fontTitle);
   letter-spacing: 1px;
 }

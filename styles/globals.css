@@ -26,20 +26,6 @@ h1 {
   color: #2a75bb;
 }
 
-h2 {
-  font-size: clamp(1.75rem, 1.3rem + 2vw, 3rem);
-  line-height: 1.2;
-  font-weight: 600;
-  margin-bottom: 0.5em;
-}
-
-h3 {
-  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
-  line-height: 1.25;
-  font-weight: 600;
-  margin-bottom: 0.5em;
-}
-
 a {
   color: #2a75bb;
   text-decoration: none;
@@ -76,4 +62,67 @@ button {
   font-size: 1rem;
   outline: none;
   border: none;
+}
+
+/* Card grid layout */
+#cardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  width: 100%;
+  padding: 2rem 1rem;
+}
+/* Load More button */
+#loadMoreButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #3b4cca;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  display: block;
+  margin-inline: auto;
+  transition: background-color 0.2s ease;
+}
+
+#loadMoreButton:hover {
+  background-color: #2a2f91;
+}
+
+/* Loading Spinner */
+#loadingIndicator {
+  margin: 1.5rem auto 0;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top-color: #3b4cca;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Detail overlay base style */
+#detailOverlay {
+  padding: 2rem;
+  background-color: #f8f8f8;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  max-width: 640px;
+  margin: 2rem auto;
+}
+
+/* Tab view placeholder */
+#tabView .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #888;
+  font-size: clamp(1.1rem, 1rem + 0.6vw, 1.5rem);
+  text-align: center;
 }

@@ -24,6 +24,10 @@ TODO 5c : if detailView active, no scrolling possible
 
 TODO 5d : show stats of pokémon (at least hp, attack, defense)
 
+Best practices:
+
+Keep adding .content wrappers inside sections, and all styles will stay clean and predictable.
+
 Project structure:
 
 /index.html              // Minimal HTML structure with <main> and <header>
@@ -171,13 +175,3 @@ all species and additional infos
 
 https://pokeapi.co/api/v2/pokemon-species/bulbasaur
 species and additional infos on bulbasaur
-
-
-
-Pitfalls:
-
-Chart is available globally: use new-keyword
-
-// main.js (or any module)
-const ctx = document.getElementById('myChart');
-new Chart(ctx, { /* config */ }); 
