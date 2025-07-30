@@ -14,17 +14,16 @@ html {
   font-family: 'Open Sans', sans-serif; /* or Pokémon-style font */
 }
 
-body {
-  color: #1e1e1e;
-  background-color: #fff;
-  font-weight: 400;
+body, p, li {
+  font-family: var(--fontBody);
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
+  line-height: 1.5;
 }
 
 h1 {
   font-size: clamp(2rem, 1.5rem + 3vw, 4rem);
-  line-height: 1.1;
-  font-weight: 700;
-  margin-bottom: 0.5em;
+  font-family: var(--fontTitle);
+  color: #2a75bb;
 }
 
 h2 {
@@ -39,13 +38,6 @@ h3 {
   line-height: 1.25;
   font-weight: 600;
   margin-bottom: 0.5em;
-}
-
-p {
-  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
-  margin-bottom: 1em;
-  max-width: 75ch;
-  color: #2a75bb;
 }
 
 a {

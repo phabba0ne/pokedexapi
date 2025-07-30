@@ -1,0 +1,13 @@
+:root {
+  --fontBody: 'Open Sans', sans-serif;
+  --fontTitle: 'Press Start 2P', monospace;
+}
+
+html {
+  font-family: var(--fontBody);
+}
+
+h1, h2, h3 {
+  font-family: var(--fontTitle);
+  letter-spacing: 1px;
+}
