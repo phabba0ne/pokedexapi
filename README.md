@@ -60,3 +60,12 @@ Project structure:
 ├── fonts.css            // Font loading, fallback styling
 └── theme.css            // Color variables (types, UI accents, etc.)
 
+MIT License © [Fabian Zeußel]
+Powered by PokéAPI and Chart.js
+
+⸻
+
+🙌 Credits
+	•	Data: PokéAPI
+	•	Charts: Chart.js
+	•	Icons/Sprites: Official Pokémon artwork (via PokéAPI)
