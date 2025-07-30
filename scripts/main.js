@@ -1,19 +1,24 @@
-import { renderPokemonCards } from './render.js';
-import { setupLoadMoreButton } from '../modules/renderManager.js';
-import { setupSearchInteraction, searchByName } from '../modules/dataManager.js';
+import { DataManager } from '../modules/dataManager.js';
 
+const loadFirstBatch = async () => {
+  const pokemonList = await DataManager.getAllPokemon(40, 0);
+  if (!pokemonList) return;
 
-document.addEventListener('DOMContentLoaded', async () => {
-  await renderPokemonCards(0, 20);
-  setupLoadMoreButton();
-  setupSearchInteraction();
+  for (const item of pokemonList.results) {
+    const pokemonData = await DataManager.getPokemonByNameOrId(item.name);
+    if (pokemonData) {
+      // Pass to renderManager or renderCard()
+    }
+  }
+};
+
+import { Detail } from './detail.js';
+
+document.addEventListener('click', async event => {
+  const card = event.target.closest('.pokemonCard');
+  if (card && card.dataset.pokemonId) {
+    await Detail.show(card.dataset.pokemonId);
+  }
 });
 
-document.getElementById('searchInput').addEventListener('input', e => {
-  document.getElementById('searchButton').classList.toggle('hidden', e.target.value.length < 3);
-});
-
-document.getElementById("searchButton").addEventListener("click", () => {
-  const term = document.getElementById("searchInput").value.trim();
-  searchByName(term);
-});
+loadFirstBatch();

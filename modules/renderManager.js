@@ -1,18 +1,38 @@
-// UI update coordination
+import { CardTemplate } from '../templates/cardTemplate.js';
 
-import { renderPokemonCards } from '../scripts/render.js';
+export class RenderManager {
+  static cardContainer = document.getElementById('cardContainer');
+  static detailOverlay = document.getElementById('detailOverlay');
+  static detailView = document.getElementById('detailView');
+  static cardView = document.getElementById('cardView');
 
-export function setupLoadMoreButton() {
-  const button = document.getElementById("loadMoreButton");
-  if (!button) {
-    console.warn("⚠️ loadMoreButton not found in DOM");
-    return;
+  static renderPokemonCard(pokemonData) {
+    const card = CardTemplate.create(pokemonData);
+    this.cardContainer.appendChild(card);
   }
 
-  button.addEventListener("click", async () => {
-    button.disabled = true;
-    await renderPokemonCards(nextOffset, 20);
-    nextOffset += 20;
-    button.disabled = false;
-  });
+  static clearCards() {
+    this.cardContainer.innerHTML = '';
+  }
+
+  static showDetailView(detailHTML) {
+    this.detailOverlay.innerHTML = '';
+    this.detailOverlay.appendChild(detailHTML);
+    this.detailView.classList.remove('hidden');
+    this.cardView.classList.add('hidden');
+  }
+
+  static closeDetailView() {
+    this.detailView.classList.add('hidden');
+    this.cardView.classList.remove('hidden');
+    this.detailOverlay.innerHTML = '';
+  }
+
+  static showLoading() {
+    document.getElementById('loadingIndicator').classList.remove('hidden');
+  }
+
+  static hideLoading() {
+    document.getElementById('loadingIndicator').classList.add('hidden');
+  }
 }

@@ -29,23 +29,34 @@ Built with **HTML5**, **ES Modules**, **CSS3**, and integrated with **Chart.js**
 
 ## 📁 Project Structure
 
-/index.html             # Main HTML structure
-/README.md              # Project documentation
+Project structure:
+
+/index.html              // Minimal HTML structure with <main> and <header>
 
 /scripts/
-main.js               # App initialization
-render.js             # Batch rendering logic
-template.js           # DOM card generation
-detail.js             # Overlay + stat chart handling
-(...)
+├── main.js              // App entry point: event listeners, orchestration
+├── assets.js            // Button logic, filters, interaction controls
+├── detail.js            // Detail view logic (overlay, stats, evolution)
+├── fonts.js             // Dynamic font loading
+├── render.js            // DOM rendering using templates
+├── template.js          // Template functions (return HTML strings)
 
 /modules/
-dataManager.js        # Fetching, transforming, filtering
-renderManager.js      # Load-more and pagination logic
-graphicsManager.js    # Loading spinner, effects, CSS hooks
-(...)
+├── dataManager.js       // API communication and data transformation
+├── graphicsManager.js   // Animations, loading spinners, visual effects
+├── renderManager.js     // Controls what and how to render in UI
+└── stateManager.js      // (Optional) global state, active Pokémon, cache
+
+/templates/
+├── cardTemplate.js      // Pokémon card template
+├── detailTemplate.js    // Detail view template
+└── typeTableTemplate.js // Type effectiveness table template
 
 /styles/
-style.css             # Layout, theme, accessibility
-(...)
+├── globals.css          // Resets, base layout settings, root variables
+├── layout.css           // Flexbox layout, main/sections styling
+├── assets.css           // Buttons, filters, inputs
+├── detail.css           // Styling for overlay and detailed Pokémon view
+├── fonts.css            // Font loading, fallback styling
+└── theme.css            // Color variables (types, UI accents, etc.)
 

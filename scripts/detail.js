@@ -1,56 +1,83 @@
-import { renderStatChart } from '../modules/chartManager.js';
+import { DataManager } from '../modules/dataManager.js';
+import { RenderManager } from '../modules/renderManager.js';
+import { DetailTemplate } from '../templates/detailTemplate.js';
 
-let activeDetailId = null;
-let chartInstance = null;
+export class Detail {
+  static async show(pokemonId) {
+    RenderManager.showLoading();
 
-/**
- * Öffnet die Detailansicht für ein Pokémon
- * @param {Object} pokemon - Das Pokémon-Objekt mit ID, Name, Typen, Bild, Stats
- */
-export function openDetailView(pokemon) {
-  const overlay = document.getElementById('detailOverlay');
+    try {
+      // Load core data
+      const pokemonData = await DataManager.getPokemonByNameOrId(pokemonId);
+      const speciesData = await DataManager.getSpeciesByNameOrId(pokemonId);
 
-  // HTML-Template
-  overlay.innerHTML = `
-    <div class="detailContent" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
-      <h2 id="detailTitle">${pokemon.name}</h2>
-      <img src="${pokemon.image}" alt="${pokemon.name}" class="detailImage" />
-      <canvas id="statChart" width="300" height="180"></canvas>
-      <button id="detailOverlayClose" aria-label="Close detail view" class="closeButton">×</button>
-    </div>
-  `;
+      // Evolution chain requires extra fetch
+      const evoUrl = speciesData.evolution_chain?.url;
+      const evoId = evoUrl?.split('/').filter(Boolean).pop();
+      const evolutionChain = evoId
+        ? await DataManager.getEvolutionChainById(evoId)
+        : null;
 
-  if (!overlay) return;
-  // Show overlay + lock scroll
-  overlay.classList.add('hidden');
-  overlay.innerHTML = '';
-  document.body.classList.remove('no-scroll'); // optional
+      // Render detail view
+      const detailHTML = DetailTemplate.create(pokemonData, speciesData, evolutionChain);
+      RenderManager.showDetailView(detailHTML);
 
-  // Eventbindung
-  document.getElementById('detailOverlayClose')?.addEventListener('click', closeDetailView);
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) closeDetailView(); // klick neben Box
-  });
-
-  // Chart.js
-  const canvas = document.getElementById('statChart');
-  if (canvas) {
-    chartInstance?.destroy?.(); // falls vorhanden, zerstören
-    chartInstance = renderStatChart(canvas, pokemon.stats, pokemon.name);
+      // Build stat chart
+      this.renderStatsChart(pokemonData.stats);
+    } catch (error) {
+      console.error('[Detail] Error rendering detail view:', error);
+    } finally {
+      RenderManager.hideLoading();
+    }
   }
 
-  activeDetailId = pokemon.id;
-}
+  static renderStatsChart(stats) {
+    const ctx = document.getElementById('statsChart');
 
-export function openDetailView(pokemon) {
-  const overlay = document.getElementById('detailOverlay');
-  if (!overlay) return;
+    if (!ctx) return;
 
-  overlay.innerHTML = renderDetailContent(pokemon); // deine eigene Funktion
-  overlay.classList.remove('hidden');
-  document.body.classList.add('no-scroll'); // optional: Scroll blocken
-}
+    const labels = stats.map(stat => this.formatLabel(stat.stat.name));
+    const data = stats.map(stat => stat.base_stat);
 
-export function closeDetailView() {
-  
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Base Stats',
+          data,
+          backgroundColor: '#3b4cca',
+          borderRadius: 8,
+        }],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 20,
+            },
+          },
+        },
+      },
+    });
+  }
+
+  static formatLabel(label) {
+    switch (label) {
+      case 'hp': return 'HP';
+      case 'attack': return 'ATK';
+      case 'defense': return 'DEF';
+      case 'special-attack': return 'SpA';
+      case 'special-defense': return 'SpD';
+      case 'speed': return 'SPD';
+      default: return label.toUpperCase();
+    }
+  }
 }
