@@ -8,9 +8,9 @@ main {
 
 /* Section Styling */
 section {
+  width: 100%;
   display: flex;
   justify-content: center;
-  width: 100%;
 }
 
 /* Content Wrapper inside Sections */
@@ -22,35 +22,37 @@ section {
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
 }
 
-/* Header Layout */
+/* #region headerLayout */
 header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 1920px;
-  margin: 0 auto;
-  padding: 1rem 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  background-color: #ffcb05;
+  background-color: #ffffff;
   border-bottom: 4px solid #3b4cca;
+  flex-direction: column;
+  padding: 1rem;
+  text-align: center;
+}
+
+h1 {
+  color: #2a75bb;
 }
 
 #pokemonLogo {
-  width:100dvw;
-  height:auto;
-
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 40% 40% 24% 24%;
 }
 
-#titleBanner h1 {
-  font-size: 2rem;
-  color: #2a75bb;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin: 0;
-}
+/* #endregion headerLayout */
 
 #searchInput {
   flex: 1;
@@ -73,9 +75,8 @@ header {
   header {
     flex-direction: column;
     align-items: flex-start;
-    img{
-        width:100%;
-        
+    img {
+      width: 100%;
     }
   }
 

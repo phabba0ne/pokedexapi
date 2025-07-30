@@ -1,55 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pokédex</title>
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="./styles/globals.css" />
-    <link rel="stylesheet" href="./styles/layout.css" />
-    <link rel="stylesheet" href="./styles/assets.css" />
-    <link rel="stylesheet" href="./styles/detail.css" />
-    <link rel="stylesheet" href="./styles/fonts.css" />
-    <link rel="stylesheet" href="./styles/theme.css" />
-    <link rel="shortcut icon" href="./assets/icons/favicon_pokeball.png" type="image/x-icon">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokédex API</title>
 
-    <!-- External Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
-  <body>
-    <header>
-      <div id="titleBanner">
-        <img src="assets/img/vecteezy_pokemon.jpg" alt="Pokémon Logo" id="pokemonLogo" />
-        <h1>Pokédex</h1>
-      </div>
-      <input id="searchInput" type="text" placeholder="Search Pokémon…" />
-      <button id="searchButton" class="hidden">Search</button>
-    </header>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles/globals.css" />
+  <link rel="stylesheet" href="./styles/layout.css" />
+  <link rel="stylesheet" href="./styles/assets.css" />
+  <link rel="stylesheet" href="./styles/detail.css" />
+  <link rel="stylesheet" href="./styles/fonts.css" />
+  <link rel="stylesheet" href="./styles/theme.css" />
+  <link rel="shortcut icon" href="./assets/icons/favicon_pokeball.png" type="image/x-icon">
 
-    <main>
-      <section id="cardView">
-        <div class="content">
-          <div id="cardContainer"></div>
-          <button id="loadMoreButton">Load More</button>
-          <div id="loadingIndicator" class="hidden"></div>
-        </div>
-      </section>
+  <!-- External Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<header>
+  <div id="titleBanner">
+    <img id="pokemonLogo" src="./assets/img/pokemon_banner.jpg" alt="Pokémon Banner" />
+    <h1>Pokédex API</h1>
+  </div>
+  <input id="searchInput" type="text" placeholder="Search Pokémon…" />
+  <button id="searchButton" class="hidden">Search</button>
+</header>
 
-      <section id="detailView" class="hidden">
-        <div class="content">
-          <div id="detailOverlay"></div>
-        </div>
-      </section>
+<main>
+  <section id="cardView">
+    <div class="content">
+      <div id="cardContainer"></div>
+      <button id="loadMoreButton">Load More</button>
+      <div id="loadingIndicator" class="hidden"></div>
+    </div>
+  </section>
 
-      <section id="tabView" class="hidden">
-        <div class="content">
-          <!-- Reserved for future feature like type effectiveness table -->
-        </div>
-      </section>
-    </main>
-    <footer><a href="https://de.vecteezy.com/gratis-vektor/pok%C3%A9mon">Pokémon Vektoren von Vecteezy</a></footer>
+  <section id="detailView" class="hidden">
+    <div class="content">
+      <div id="detailOverlay"></div>
+    </div>
+  </section>
 
-    <script type="module" src="./scripts/main.js"></script>
-  </body>
+  <section id="tabView" class="hidden">
+    <div class="content">
+      <!-- Reserved for future feature like type effectiveness table -->
+    </div>
+  </section>
+</main>
+<footer><a href="https://de.vecteezy.com/gratis-vektor/pok%C3%A9mon">Pokémon Vektoren von Vecteezy</a></footer>
+
+<script type="module" src="./scripts/main.js"></script>
+</body>
+
 </html>

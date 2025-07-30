@@ -63,7 +63,7 @@ Project structure:
 MIT License © [Fabian Zeußel]
 Powered by PokéAPI and Chart.js
 
-⸻
+---
 
 🙌 Credits
 	•	Data: PokéAPI
