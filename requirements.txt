@@ -1,9 +1,3 @@
-TODO 1 next : render 20 up to to 40 Pokémon Cards at a time
--> ./scripts/render.js
--> ./scripts/template.js
--> ./modules/dataManager.js
-
-
 TODO 2 : button loadMore unten auf der Seite
 -> ./modules/renderManager.js
 
@@ -12,9 +6,6 @@ TODO 3a : (user feedback) show stylish loading animation while loading data
 
 TODO 3b : (user feedback) deactivate button while loading
 ./modules/graphicsManager.js
-
-TODO 3c : type in at least 3 letters to make search button appear
--> ./modules/dataManager.js
 
 TODO 4a : load information for listView (capitalized name, type(s), img, type-fitting background-colors, ID, ...)
 -> ./modules/dataManager.js
@@ -32,5 +23,78 @@ TODO 5c : if detailView active, no scrolling possible
 ./scripts/detail.js
 
 TODO 5d : show stats of pokémon (at least hp, attack, defense)
-./scripts/detail.js
 
+Project structure:
+
+/index.html              // Minimal HTML structure with <main> and <header>
+
+/scripts/
+├── main.js              // App entry point: event listeners, orchestration
+├── assets.js            // Button logic, filters, interaction controls
+├── detail.js            // Detail view logic (overlay, stats, evolution)
+├── fonts.js             // Dynamic font loading
+├── render.js            // DOM rendering using templates
+├── template.js          // Template functions (return HTML strings)
+
+/modules/
+├── dataManager.js       // API communication and data transformation
+├── graphicsManager.js   // Animations, loading spinners, visual effects
+├── renderManager.js     // Controls what and how to render in UI
+└── stateManager.js      // (Optional) global state, active Pokémon, cache
+
+/templates/
+├── cardTemplate.js      // Pokémon card template
+├── detailTemplate.js    // Detail view template
+└── typeTableTemplate.js // Type effectiveness table template
+
+/styles/
+├── globals.css          // Resets, base layout settings, root variables
+├── layout.css           // Flexbox layout, main/sections styling
+├── assets.css           // Buttons, filters, inputs
+├── detail.css           // Styling for overlay and detailed Pokémon view
+├── fonts.css            // Font loading, fallback styling
+└── theme.css            // Color variables (types, UI accents, etc.)
+
+
+Best practice for commits:
+
+feat: 	    add login page			                        Neue Funktionalität (e.g. Einfügen einer Anmeldeseite)
+				
+fix:	      resolve bug with image loading flicker			Fehlerbehebung (Bugfixes)
+				
+docs:	      update README with new setup instructions		Dokumentation
+				
+style:	    fix indentation in main.js			            Code-Formatierung (Leerzeichen, Formatierungen)
+				
+refactor:	  simplify login flow logic			            Code-Änderungen ohne Bugfix oder neue Funktion
+				
+perf:	      perf: code shortened to under 400 lines			Code Performance oOptimierung
+				
+test:	      add unit tests for login component			    Tests
+
+API:
+
+https://pokeapi.co/api/v2/            
+all data
+
+https://pokeapi.co/api/v2/pokemon      
+all pokemon
+
+https://pokeapi.co/api/v2/pokemon/ditto
+resource for one pokemon per name
+
+https://pokeapi.co/api/v2/pokemon-species
+all species and additional infos
+
+https://pokeapi.co/api/v2/pokemon-species/bulbasaur
+species and additional infos on bulbasaur
+
+
+
+Pitfalls:
+
+Chart is available globally: use new-keyword
+
+// main.js (or any module)
+const ctx = document.getElementById('myChart');
+new Chart(ctx, { /* config */ }); 

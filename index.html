@@ -4,17 +4,50 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokédex</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./styles/globals.css" />
+    <link rel="stylesheet" href="./styles/layout.css" />
+    <link rel="stylesheet" href="./styles/assets.css" />
+    <link rel="stylesheet" href="./styles/detail.css" />
+    <link rel="stylesheet" href="./styles/fonts.css" />
+    <link rel="stylesheet" href="./styles/theme.css" />
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <header>
-        <img src="" alt="Pokémon Logo">
+      <img src="./assets/pokemonLogo.svg" alt="Pokémon Logo" id="pokemonLogo" />
+      <div id="titleBanner">
         <h1>Pokédex</h1>
-        <input id="searchBar" type="text">
-        
-         <button class="searchBtn hidden">search</button>
+      </div>
+      <input id="searchInput" type="text" placeholder="Search Pokémon…" />
+      <button id="searchButton" class="hidden">Search</button>
     </header>
-    <main></main>
-    <footer></footer>
+
+    <main>
+      <section id="cardView">
+        <div class="content">
+          <div id="cardContainer"></div>
+          <button id="loadMoreButton">Load More</button>
+          <div id="loadingIndicator" class="hidden"></div>
+        </div>
+      </section>
+
+      <section id="detailView" class="hidden">
+        <div class="content">
+          <div id="detailOverlay"></div>
+        </div>
+      </section>
+
+      <section id="tabView" class="hidden">
+        <div class="content">
+          <!-- Reserved for future feature like type effectiveness table -->
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./scripts/main.js"></script>
   </body>
 </html>
