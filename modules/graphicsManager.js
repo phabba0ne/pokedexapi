@@ -24,27 +24,26 @@ export class GraphicsManager {
     return this.typeColors[typeName.toLowerCase()] || '#999';
   }
 }
-/**
- * Show a stylish loading animation
- */
+
 export function showLoading() {
   let loader = document.getElementById('loadingSpinner');
   if (!loader) {
     loader = document.createElement('div');
     loader.id = 'loadingSpinner';
     loader.className = 'spinnerOverlay';
-    loader.innerHTML = `<div class="spinner"></div>`;
+    loader.setAttribute('aria-busy', 'true');
+    loader.setAttribute('aria-live', 'polite');
+    loader.setAttribute('role', 'status');
+    loader.innerHTML = `<div class="spinner" aria-hidden="true"></div>`;
     document.body.appendChild(loader);
   }
   loader.classList.remove('hidden');
 }
 
-/**
- * Hide the loading animation
- */
 export function hideLoading() {
   const loader = document.getElementById('loadingSpinner');
   if (loader) {
     loader.classList.add('hidden');
+    loader.removeAttribute('aria-busy');
   }
 }

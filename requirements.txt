@@ -155,20 +155,3 @@ refactor:	  simplify login flow logic			            Code-Änderungen ohne Bugfix
 perf:	      perf: code shortened to under 400 lines			Code Performance oOptimierung
 				
 test:	      add unit tests for login component			    Tests
-
-API:
-
-https://pokeapi.co/api/v2/            
-all data
-
-https://pokeapi.co/api/v2/pokemon      
-all pokemon
-
-https://pokeapi.co/api/v2/pokemon/ditto
-resource for one pokemon per name
-
-https://pokeapi.co/api/v2/pokemon-species
-all species and additional infos
-
-https://pokeapi.co/api/v2/pokemon-species/bulbasaur
-species and additional infos on bulbasaur

@@ -1,27 +1,27 @@
 import { DataManager } from "../modules/dataManager.js";
 import { RenderManager } from "../modules/renderManager.js";
-import { showLoading, hideLoading } from '../modules/graphicsManager.js';
+import { showLoading, hideLoading } from "../modules/graphicsManager.js";
+
 let offset = 0;
-const limit = 1000;
+const limit = 40;
 
 async function loadAndRenderPokemon() {
-  const list = await DataManager.getAllPokemon(limit, offset);
-  if (!list?.results) return;
   showLoading();
   try {
-    const data = await DataManager.getAllPokemon();
-    // render cards...
-  } catch (err) {
-    console.error(err);
-  } finally {
-    hideLoading();
-  }
-  const detailed = await Promise.all(
-    list.results.map((p) => DataManager.getPokemonByNameOrId(p.name))
-  );
+    const list = await DataManager.getAllPokemon(limit, offset);
+    if (!list?.results) throw new Error("No Pokémon list fetched");
 
-  detailed.forEach(RenderManager.renderCard);
-  offset += limit;
+    const detailed = await Promise.all(
+      list.results.map((p) => DataManager.getPokemonByNameOrId(p.name))
+    );
+
+    detailed.forEach(RenderManager.renderCard);
+    offset += limit;
+  } catch (err) {
+    console.error("[Main] Failed to load Pokémon:", err);
+  } finally {
+    hideLoading(); // ⬅️ STOP SPINNER
+  }
 }
 
 document
@@ -30,3 +30,4 @@ document
 
 // Initial load
 loadAndRenderPokemon();
+

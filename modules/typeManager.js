@@ -1,5 +1,3 @@
-import { GraphicsManager } from "./graphicsManager.js";
-import { DataManager } from "./dataManager.js";
 
 export class TypeManager {
   static async getTypeOverview() {
