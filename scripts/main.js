@@ -1,24 +1,23 @@
 import { DataManager } from '../modules/dataManager.js';
+import { RenderManager } from '../modules/renderManager.js';
 
-const loadFirstBatch = async () => {
-  const pokemonList = await DataManager.getAllPokemon(40, 0);
-  if (!pokemonList) return;
+let currentOffset = 0;
+const limit = 20;
 
-  for (const item of pokemonList.results) {
-    const pokemonData = await DataManager.getPokemonByNameOrId(item.name);
-    if (pokemonData) {
-      // Pass to renderManager or renderCard()
-    }
-  }
-};
+document.addEventListener('DOMContentLoaded', () => {
+  loadPokemonBatch();
 
-import { Detail } from './detail.js';
-
-document.addEventListener('click', async event => {
-  const card = event.target.closest('.pokemonCard');
-  if (card && card.dataset.pokemonId) {
-    await Detail.show(card.dataset.pokemonId);
-  }
+  const loadMoreButton = document.getElementById('loadMoreButton');
+  loadMoreButton.addEventListener('click', loadPokemonBatch);
 });
 
-loadFirstBatch();
+async function loadPokemonBatch() {
+  const data = await DataManager.getAllPokemon(limit, currentOffset);
+  if (data && data.results) {
+    for (const entry of data.results) {
+      const pokemonData = await DataManager.getPokemonByNameOrId(entry.name);
+      RenderManager.renderCard(pokemonData);
+    }
+    currentOffset += limit;
+  }
+}

@@ -1,7 +1,7 @@
 //show cards
 
 import { getPokemonBatch } from '../modules/dataManager.js';
-import { createCardTemplate } from './template.js';
+import { createCardTemplate } from '../templates/template.js';
 import { applyTypeColor } from '../modules/graphicsManager.js';
 
 export async function renderPokemonCards(startIndex = 0, amount = 20) {
@@ -19,6 +19,6 @@ export async function renderPokemonCards(startIndex = 0, amount = 20) {
   cardContainer.appendChild(fragment);
 }
 
-renderPokemonCards(0, 50);
+renderPokemonCards(0, 40);
 
 // WIP : render 20 up to to 40 Pokémon Cards at a time
