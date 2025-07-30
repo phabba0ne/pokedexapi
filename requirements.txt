@@ -55,6 +55,89 @@ Project structure:
 ├── fonts.css            // Font loading, fallback styling
 └── theme.css            // Color variables (types, UI accents, etc.)
 
+API endpoints:
+
+https://pokeapi.co/api/v2/
+   all data — entry point listing all resource groups (paginated)
+
+https://pokeapi.co/api/v2/pokemon
+   list all Pokémon (paginated, default 20 per page; use ?limit=&offset=)
+
+https://pokeapi.co/api/v2/pokemon/{idOrName}
+   data for one Pokémon by id or name (stats, types, abilities, sprites)
+
+https://pokeapi.co/api/v2/pokemonSpecies
+   list all Pokémon species (paginated), including egg groups, base stats, flavor text
+
+https://pokeapi.co/api/v2/pokemonSpecies/{idOrName}
+   species details for specific species (evolution chain link, flavor text, habitat)
+
+https://pokeapi.co/api/v2/evolutionChain/{id}
+   evolution chain data for a given chain id (linked species evolution order)
+
+https://pokeapi.co/api/v2/type
+   list all types (e.g. grass, fire) including damage relations
+
+https://pokeapi.co/api/v2/type/{idOrName}
+   type details (damage relations: double, half, no damage to/from)
+
+https://pokeapi.co/api/v2/ability
+   list all abilities (paginated)
+
+https://pokeapi.co/api/v2/ability/{idOrName}
+   ability details (effect entries, associated Pokémon)
+
+https://pokeapi.co/api/v2/move
+   list all moves (paginated)
+
+https://pokeapi.co/api/v2/move/{idOrName}
+   move details (type, power, accuracy, damage class, effects)
+
+https://pokeapi.co/api/v2/item
+   list all items (pokéballs, potions, berries etc.)
+
+https://pokeapi.co/api/v2/item/{idOrName}
+   item details (effect, cost, attributes)
+
+https://pokeapi.co/api/v2/berry
+   list all berries
+
+https://pokeapi.co/api/v2/berry/{idOrName}
+   berry details (growthTime, flavors, firmness)
+
+https://pokeapi.co/api/v2/location
+   list all game-world locations
+
+https://pokeapi.co/api/v2/location/{idOrName}
+   location details (region, encounter areas)
+
+https://pokeapi.co/api/v2/locationArea/{idOrName}
+   specific location area (encounter rates per version)
+
+https://pokeapi.co/api/v2/pokedex/{idOrName}
+   pokédex entries (regional lists of species with names and entries)
+
+https://pokeapi.co/api/v2/generation/{idOrName}
+   generation data (introduced moves, species, abilities)
+
+https://pokeapi.co/api/v2/version
+   game version details (generation, region groups)
+
+https://pokeapi.co/api/v2/moveDamageClass/{idOrName}
+   damage class info: physical / special / status
+
+https://pokeapi.co/api/v2/moveLearnMethod/{idOrName}
+   how Pokémon learn moves (e.g. level-up, egg, tutor)
+
+https://pokeapi.co/api/v2/moveTarget/{idOrName}
+   target of a move (self, adjacent, all)
+
+https://pokeapi.co/api/v2/pokemonShape/{idOrName}
+   visual shape categories of Pokémon
+
+https://pokeapi.co/api/v2/pokemonHabitat/{idOrName}
+   habitat info (e.g. forest, cave)
+
 
 Best practice for commits:
 
