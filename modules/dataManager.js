@@ -1,3 +1,5 @@
+import { GraphicsManager } from "./graphicsManager.js";
+
 const BASE_URL = "https://pokeapi.co/api/v2/";
 
 export class DataManager {
@@ -116,6 +118,35 @@ export class DataManager {
 
   static async getPokemonHabitatByNameOrId(idOrName) {
     return await this.fetchJson(`pokemon-habitat/${idOrName}`);
+  }
+
+  static async getPokemonListDetailed(limit = 20, offset = 0) {
+    const list = await this.getAllPokemon(limit, offset);
+    if (!list?.results) return [];
+
+    const detailed = await Promise.all(
+      list.results.map(async ({ name }) => {
+        const data = await this.getPokemonByNameOrId(name);
+        if (!data) return null;
+
+        const types = data.types.map((t) => t.type.name);
+        const primaryType = types[0];
+
+        return {
+          id: data.id,
+          name: this.capitalize(data.name),
+          img: data.sprites.other["official-artwork"].front_default,
+          types,
+          color: GraphicsManager.getTypeColor(primaryType),
+        };
+      })
+    );
+
+    return detailed.filter(Boolean); // remove nulls
+  }
+
+  static capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   // Reusable Fetch Utility

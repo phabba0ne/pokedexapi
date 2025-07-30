@@ -20,3 +20,6 @@ export async function renderPokemonCards(startIndex = 0, amount = 20) {
 }
 
 renderPokemonCards(0, 40);
+
+const list = await DataManager.getPokemonListDetailed(20, 0);
+list.forEach(RenderManager.renderCard);

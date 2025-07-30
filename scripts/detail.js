@@ -1,43 +1,39 @@
 import { DataManager } from '../modules/dataManager.js';
 import { RenderManager } from '../modules/renderManager.js';
 import { DetailTemplate } from '../templates/detailTemplate.js';
+import { showLoading, hideLoading } from '../modules/graphicsManager.js';
 
 export class Detail {
   static async show(pokemonId) {
-    RenderManager.showLoading();
+    showLoading();
 
     try {
-      // Load core data
-      const pokemonData = await DataManager.getPokemonByNameOrId(pokemonId);
-      const speciesData = await DataManager.getSpeciesByNameOrId(pokemonId);
+      const pokemon = await DataManager.getPokemonByNameOrId(pokemonId);
+      const species = await DataManager.getSpeciesByNameOrId(pokemonId);
 
-      // Evolution chain requires extra fetch
-      const evoUrl = speciesData.evolution_chain?.url;
+      const evoUrl = species.evolution_chain?.url;
       const evoId = evoUrl?.split('/').filter(Boolean).pop();
       const evolutionChain = evoId
         ? await DataManager.getEvolutionChainById(evoId)
         : null;
 
-      // Render detail view
-      const detailHTML = DetailTemplate.create(pokemonData, speciesData, evolutionChain);
+      const detailHTML = DetailTemplate.create(pokemon, species, evolutionChain);
       RenderManager.showDetailView(detailHTML);
 
-      // Build stat chart
-      this.renderStatsChart(pokemonData.stats);
-    } catch (error) {
-      console.error('[Detail] Error rendering detail view:', error);
+      this.renderStatsChart(pokemon.stats);
+    } catch (err) {
+      console.error('[Detail] Failed to show detail view:', err);
     } finally {
-      RenderManager.hideLoading();
+      hideLoading();
     }
   }
 
   static renderStatsChart(stats) {
     const ctx = document.getElementById('statsChart');
-
     if (!ctx) return;
 
-    const labels = stats.map(stat => this.formatLabel(stat.stat.name));
-    const data = stats.map(stat => stat.base_stat);
+    const labels = stats.map(s => this.formatLabel(s.stat.name));
+    const values = stats.map(s => s.base_stat);
 
     new Chart(ctx, {
       type: 'bar',
@@ -45,27 +41,21 @@ export class Detail {
         labels,
         datasets: [{
           label: 'Base Stats',
-          data,
+          data: values,
           backgroundColor: '#3b4cca',
-          borderRadius: 8,
-        }],
+          borderRadius: 8
+        }]
       },
       options: {
         responsive: true,
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
         scales: {
           y: {
             beginAtZero: true,
-            ticks: {
-              stepSize: 20,
-            },
-          },
+            ticks: { stepSize: 20 }
+          }
         },
-      },
+        plugins: { legend: { display: false } }
+      }
     });
   }
 

@@ -1,6 +1,3 @@
-TODO 3b : (user feedback) deactivate button while loading
-./modules/graphicsManager.js
-
 TODO 4a : load information for listView (capitalized name, type(s), img, type-fitting background-colors, ID, ...)
 -> ./modules/dataManager.js
 
