@@ -1,6 +1,6 @@
 :root {
-  --fontBody: 'Open Sans', sans-serif;
-  --fontTitle: 'Press Start 2P', monospace;
+  --fontBody: 'Open Sans', system-ui, sans-serif;
+  --fontTitle: 'Press Start 2P', 'Courier New', monospace;
 }
 
 html {

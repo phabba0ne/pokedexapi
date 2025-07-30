@@ -1,7 +1,6 @@
 /* Main Layout Container */
 main {
   width: 100%;
-  min-width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +9,6 @@ main {
 /* Section Styling */
 section {
   width: 100%;
-  min-width: 320px;
   display: flex;
   justify-content: center;
 }
@@ -18,8 +16,6 @@ section {
 /* Content Wrapper inside Sections */
 .content {
   width: 100%;
-  min-width: 320px;
-  max-width: 1920px;
   height: 100%;
   min-height: 100dvh;
   padding: 1rem;
@@ -31,13 +27,11 @@ section {
 
 /* #region headerLayout */
 header {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 320px;
-  width: 100%;
-  max-width: 1920px;
   background-color: #ffffff;
   border-bottom: 4px solid #3b4cca;
   flex-direction: column;
