@@ -1,23 +1,25 @@
 import { DataManager } from '../modules/dataManager.js';
 import { RenderManager } from '../modules/renderManager.js';
 
-let currentOffset = 0;
+let offset = 0;
 const limit = 20;
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadPokemonBatch();
+async function loadAndRenderPokemon() {
+  const list = await DataManager.getAllPokemon(limit, offset);
+  if (!list?.results) return;
 
-  const loadMoreButton = document.getElementById('loadMoreButton');
-  loadMoreButton.addEventListener('click', loadPokemonBatch);
-});
+  const detailed = await Promise.all(
+    list.results.map(p => DataManager.getPokemonByNameOrId(p.name))
+  );
 
-async function loadPokemonBatch() {
-  const data = await DataManager.getAllPokemon(limit, currentOffset);
-  if (data && data.results) {
-    for (const entry of data.results) {
-      const pokemonData = await DataManager.getPokemonByNameOrId(entry.name);
-      RenderManager.renderCard(pokemonData);
-    }
-    currentOffset += limit;
-  }
+  detailed.forEach(RenderManager.renderCard);
+  offset += limit;
 }
+
+document.getElementById('loadMoreButton')?.addEventListener('click', loadAndRenderPokemon);
+
+// Initial load
+loadAndRenderPokemon();
+
+
+

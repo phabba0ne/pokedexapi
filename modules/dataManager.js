@@ -1,4 +1,4 @@
-const BASE_URL = 'https://pokeapi.co/api/v2/';
+const BASE_URL = "https://pokeapi.co/api/v2/";
 
 export class DataManager {
   // Core Pokémon
@@ -12,7 +12,9 @@ export class DataManager {
 
   // Species & Evolution
   static async getAllSpecies(limit = 20, offset = 0) {
-    return await this.fetchJson(`pokemon-species?limit=${limit}&offset=${offset}`);
+    return await this.fetchJson(
+      `pokemon-species?limit=${limit}&offset=${offset}`
+    );
   }
 
   static async getSpeciesByNameOrId(idOrName) {
@@ -122,8 +124,8 @@ export class DataManager {
       const res = await fetch(`${BASE_URL}${endpoint}`);
       if (!res.ok) throw new Error(`Failed to fetch: ${endpoint}`);
       return await res.json();
-    } catch (error) {
-      console.error(`[DataManager] Error: ${error.message}`);
+    } catch (err) {
+      console.error(`[DataManager] ${endpoint}: ${err.message}`);
       return null;
     }
   }

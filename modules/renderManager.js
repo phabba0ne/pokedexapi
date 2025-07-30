@@ -7,3 +7,4 @@ export class RenderManager {
     container.appendChild(card);
   }
 }
+
