@@ -1,1 +1,0 @@
-//TODO 6: inject arrowLeftBtn and arrowRightBtn in detailView (onclick toNextDetailView / toPrevDetailView)

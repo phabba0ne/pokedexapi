@@ -29,32 +29,32 @@ Project structure:
 
 /index.html              // Minimal HTML structure with <main> and <header>
 
-/scripts/
-├── main.js              // App entry point: event listeners, orchestration
-├── assets.js            // Button logic, filters, interaction controls
-├── detail.js            // Detail view logic (overlay, stats, evolution)
-├── fonts.js             // Dynamic font loading
-├── render.js            // DOM rendering using templates
-├── template.js          // Template functions (return HTML strings)
+/assets/
+/icons/
+/img/
 
 /modules/
 ├── dataManager.js       // API communication and data transformation
 ├── graphicsManager.js   // Animations, loading spinners, visual effects
 ├── renderManager.js     // Controls what and how to render in UI
-└── stateManager.js      // (Optional) global state, active Pokémon, cache
+
+
+/scripts/
+├── main.js              // App entry point: event listeners, orchestration
+├── detail.js            // Detail view logic (overlay, stats, evolution)
+├── fonts.js             // Dynamic font loading
+├── render.js            // DOM rendering using templates
+├── template.js          // Template functions (return HTML strings)
+
 
 /templates/
-├── cardTemplate.js      // Pokémon card template
-├── detailTemplate.js    // Detail view template
-└── typeTableTemplate.js // Type effectiveness table template
+├── template.js          // Templates to create HTML-Elements
 
-/styles/
+/styles/w
+├── fonts.css            // Font loading, fallback styling
 ├── globals.css          // Resets, base layout settings, root variables
 ├── layout.css           // Flexbox layout, main/sections styling
-├── assets.css           // Buttons, filters, inputs
-├── detail.css           // Styling for overlay and detailed Pokémon view
-├── fonts.css            // Font loading, fallback styling
-└── theme.css            // Color variables (types, UI accents, etc.)
+├── style.css
 
 API endpoints:
 
