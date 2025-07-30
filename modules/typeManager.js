@@ -16,15 +16,6 @@ export class TypeManager {
         };
       })
     );
-
     return types;
-  }
-
-  static async getAllTypes() {
-    return await this.fetchJson("type");
-  }
-
-  static async getTypeByNameOrId(nameOrId) {
-    return await this.fetchJson(`type/${nameOrId}`);
   }
 }

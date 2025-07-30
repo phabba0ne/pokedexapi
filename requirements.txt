@@ -1,6 +1,3 @@
-TODO 2 : button loadMore unten auf der Seite
--> ./modules/renderManager.js
-
 TODO 3a : (user feedback) show stylish loading animation while loading data
 ./modules/graphicsManager.js
 

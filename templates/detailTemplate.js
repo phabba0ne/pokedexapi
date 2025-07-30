@@ -22,17 +22,6 @@ export class DetailTemplate {
 
     header.append(name, id, image);
 
-    // Type tags
-    const types = document.createElement('div');
-    types.className = 'detailTypes';
-    pokemonData.types.forEach(t => {
-      const tag = document.createElement('span');
-      tag.className = 'typeTag';
-      tag.textContent = this.capitalize(t.type.name);
-      tag.style.backgroundColor = GraphicsManager.getTypeColor(t.type.name);
-      types.appendChild(tag);
-    });
-
     // Abilities
     const abilities = document.createElement('div');
     abilities.className = 'detailAbilities';
@@ -76,7 +65,7 @@ export class DetailTemplate {
     evolution.append(evoTitle, evoChain);
 
     // Compose final card
-    container.append(header, types, abilities, statsSection, flavor, evolution);
+    container.append(header, abilities, statsSection, flavor, evolution);
     return container;
   }
 

@@ -26,7 +26,7 @@
 }
 
 .pokemonCard h2 {
-  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  font-size: clamp(1rem, 1.25rem, 1.75rem);
   color: #2a75bb;
   margin-bottom: 0.25em;
   font-family: var(--fontTitle);
@@ -50,4 +50,35 @@
   font-weight: 600;
   color: #fff;
   text-transform: capitalize;
+}
+
+/* Spinner container */
+.spinnerOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Spinner animation */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #ccc;
+  border-top-color: #2a75bb;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -20,5 +20,3 @@ export async function renderPokemonCards(startIndex = 0, amount = 20) {
 }
 
 renderPokemonCards(0, 40);
-
-// WIP : render 20 up to to 40 Pokémon Cards at a time
