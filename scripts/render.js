@@ -11,6 +11,7 @@ export async function renderPokemonCards(startIndex = 0, amount = 20) {
   const fragment = document.createDocumentFragment();
 
   for (const pokemon of pokemonList) {
+    enrichPokemon(pokemon);
     const card = createCardTemplate(pokemon);
     applyTypeColor(card, pokemon.types); // Farbanpassung
     fragment.appendChild(card);
@@ -23,3 +24,9 @@ renderPokemonCards(0, 40);
 
 const list = await DataManager.getPokemonListDetailed(20, 0);
 list.forEach(RenderManager.renderCard);
+
+async function enrichPokemon(pokemon) {
+  const species = await DataManager.getSpeciesByNameOrId(pokemon.id);
+  pokemon.is_legendary = species?.is_legendary ?? false;
+  return pokemon;
+}

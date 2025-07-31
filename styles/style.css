@@ -1,130 +1,147 @@
-/* hides searchButton */
-.hidden {
-  display: none;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+/* ROOT VARIABLES */
+:root {
+  --border-radius: 1.25rem;
+  --shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  --fontTitle: 'Orbitron', sans-serif;
+  --card-bg: #fefefe;
+  --text-main: #1e1e1e;
+  --accent-blue: #2a75bb;
 }
 
+/* GENERAL */
 body.no-scroll {
   overflow: hidden;
-    height: 100dvh;
-}
-
-/* Pokémon Card */
-.pokemonCard {
-  width: 100%;
-  max-width: 320px;
-  border-radius: 1.25rem;
-  background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.pokemonCard img {
-  width: clamp(160px, 40%, 240px);
-  height: auto;
-  margin-bottom: 1rem;
-}
-
-.pokemonCard:hover {
-  transform: scale(1.04);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-}
-
-.pokemonCard h2 {
-  font-size: clamp(1rem, 1.25rem, 1.75rem);
-  color: #2a75bb;
-  margin-bottom: 0.25em;
-  font-family: var(--fontTitle);
-}
-
-.pokemonCard p {
-  font-size: clamp(0.9rem, 0.8rem + 0.4vw, 1rem);
-  color: #555;
-}
-
-.typeContainer {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.typeTag {
-  display: inline-block;
-  padding: 0.3rem 0.6rem;
-  margin: 0.25rem;
-  border-radius: 999px;
-  color: white;
-  font-weight: bold;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-}
-
-/* Spinner container */
-.spinnerOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-/* Spinner animation */
-.spinner {
-  width: 60px;
-  height: 60px;
-  border: 6px solid #ccc;
-  border-top-color: #2a75bb;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+  height: 100dvh;
+  background: #f4f9ff;
+  color: var(--text-main);
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .hidden {
   display: none !important;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+/* POKÉMON CARD */
+.pokemonCard {
+  width: 100%;
+  max-width: 300px;
+  perspective: 1000px;
+  cursor: pointer;
 }
 
-.spinnerOverlay {
-  animation: fadeIn 0.3s ease-in;
+.tradingCard {
+  position: relative;
+  background: linear-gradient(135deg, var(--main-color), #fefefe);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  color: var(--text-main);
+  font-family: var(--fontTitle);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
-@keyframes fadeIn {
-  from {
+.tradingCard:hover {
+  transform: scale(1.04) rotateZ(-0.5deg);
+  box-shadow: 0 0 20px var(--main-color);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.cardImage {
+  width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  margin: 0.5rem 0;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.15));
+}
+
+.typeTags {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0.4rem 0;
+}
+
+.typeBadge,
+.typeTag {
+  padding: 0.4rem 0.7rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Details */
+.cardStats,
+.cardMeta {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+  color: #333;
+}
+
+/* SHINE ANIMATION */
+.shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.5) 50%, transparent 100%);
+  transform: rotateZ(30deg) translate(-100%, -100%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.shine.animate {
+  animation: shineMove 0.7s ease forwards;
+}
+
+@keyframes shineMove {
+  0% {
+    transform: rotateZ(30deg) translate(-100%, -100%);
     opacity: 0;
   }
-  to {
-    opacity: 1;
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotateZ(30deg) translate(100%, 100%);
+    opacity: 0;
   }
 }
 
+/* DETAIL CARD */
 .detailCard {
-   display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 640px;
-  height:100dvh;
+  height: 100dvh;
   padding: 2rem;
-  background-color: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  border: 4px solid;
+  background: linear-gradient(135deg, var(--main-color), #eef6fc);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 4px solid var(--main-color);
+  color: var(--text-main);
   text-align: center;
 }
 
 .detailCard img {
   max-width: 100%;
   height: auto;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.1));
 }
 
 .flavorText {
@@ -133,6 +150,7 @@ body.no-scroll {
   padding: 0.5rem 0;
 }
 
+/* EVOLUTION CHAIN */
 .evolutionChain {
   margin-top: 1.5rem;
 }
@@ -148,19 +166,52 @@ body.no-scroll {
 .evoStage {
   padding: 0.5rem 1rem;
   border-radius: 1rem;
-  background-color: #eee;
+  background-color: #ddd;
   font-weight: bold;
   text-transform: capitalize;
 }
 
 .evoArrow {
   font-size: 1.5rem;
-  color: #3b4cca;
+  color: var(--accent-blue);
 }
 
+/* NO RESULTS */
 .noResults {
   font-size: 1.25rem;
   color: #666;
   text-align: center;
   padding: 2rem;
+}
+
+/* TYPE COLORS */
+.typeBadge[data-type="fire"] { background: #f08030; }
+.typeBadge[data-type="water"] { background: #6890f0; }
+.typeBadge[data-type="grass"] { background: #78c850; }
+.typeBadge[data-type="electric"] { background: #f8d030; color: #222; }
+.typeBadge[data-type="ice"] { background: #98d8d8; color: #222; }
+.typeBadge[data-type="fighting"] { background: #c03028; }
+.typeBadge[data-type="poison"] { background: #a040a0; }
+.typeBadge[data-type="ground"] { background: #e0c068; color: #222; }
+.typeBadge[data-type="flying"] { background: #a890f0; }
+.typeBadge[data-type="psychic"] { background: #f85888; }
+.typeBadge[data-type="bug"] { background: #a8b820; }
+.typeBadge[data-type="rock"] { background: #b8a038; }
+.typeBadge[data-type="ghost"] { background: #705898; }
+.typeBadge[data-type="dragon"] { background: #7038f8; }
+.typeBadge[data-type="dark"] { background: #705848; }
+.typeBadge[data-type="steel"] { background: #b8b8d0; color: #222; }
+.typeBadge[data-type="fairy"] { background: #ee99ac; }
+
+/* LEGENDARY SWAG */
+.legendaryCard .tradingCard {
+  background: radial-gradient(circle at center, #fffbe6, #ffe680);
+  animation: pulseLegendary 3s infinite ease-in-out;
+  box-shadow: 0 0 25px 5px gold;
+}
+
+@keyframes pulseLegendary {
+  0% { box-shadow: 0 0 15px 4px gold; }
+  50% { box-shadow: 0 0 30px 8px rgba(255, 215, 0, 0.8); }
+  100% { box-shadow: 0 0 15px 4px gold; }
 }
