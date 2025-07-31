@@ -1,3 +1,8 @@
+/* prevents scrolling */
+body.lockScroll {
+  overflow: hidden;
+}
+
 /* Pokémon Card */
 .pokemonCard {
   width: 100%;

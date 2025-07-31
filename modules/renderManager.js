@@ -1,5 +1,4 @@
 import { cardTemplate } from '../templates/template.js';
-import { Detail } from '../scripts/detail.js';
 
 export class RenderManager {
   static renderCard(pokemonData) {
@@ -10,6 +9,9 @@ export class RenderManager {
 static showDetailView(html) {
   const overlay = document.getElementById('detailOverlay');
   overlay.innerHTML = html;
+
+  // prevents scrolling when detail view open
+  document.body.classList.add('lockScroll');
 
   document.getElementById('cardView')?.classList.add('hidden');
   document.getElementById('tabView')?.classList.add('hidden');

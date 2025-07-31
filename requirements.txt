@@ -1,15 +1,3 @@
-TODO 4a : load information for listView (capitalized name, type(s), img, type-fitting background-colors, ID, ...)
--> ./modules/dataManager.js
-
-TODO 4b : glowing hover effect on each card (type-fitting)
-./modules/graphicsManager.js
-
-TODO 5a : open list view on cardListTemplate onclick
-./scripts/detail.js
-
-TODO 5b : close detailView onclick next to cart
-./scripts/detail.js
-
 TODO 5c : if detailView active, no scrolling possible
 ./scripts/detail.js
 

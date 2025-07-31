@@ -9,6 +9,7 @@ export class DetailTemplate {
     const flavor = this.extractFlavorText(species);
 
     return `
+    <div class="detailOverlayInner">
       <article class="detailCard" style="border-color: ${primaryColor}">
       <button class="backButton" id="closeDetailBtn">← Back</button>
         <h2>#${paddedId} ${capitalizedName}</h2>
@@ -26,6 +27,7 @@ export class DetailTemplate {
 
         ${evolutionChain ? this.renderEvolution(evolutionChain) : ''}
       </article>
+    </div>
     `;
   }
 

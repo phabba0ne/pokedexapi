@@ -47,3 +47,10 @@ document.addEventListener('click', e => {
     RenderManager.hideDetailView();
   }
 });
+
+document.getElementById('detailOverlay').addEventListener('click', (event) => {
+  const clickedInsideCard = event.target.closest('.detailCard');
+  if (!clickedInsideCard) {
+    RenderManager.hideDetailView();
+  }
+});
