@@ -23,4 +23,3 @@ static showDetailView(html) {
     document.getElementById('cardView')?.classList.remove('hidden');
   }
 }
-

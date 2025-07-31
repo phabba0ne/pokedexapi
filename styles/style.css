@@ -3,6 +3,10 @@
   display: none;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 /* Pokémon Card */
 .pokemonCard {
   width: 100%;
@@ -102,7 +106,11 @@
 }
 
 .detailCard {
+   display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 640px;
+  height:100dvh;
   padding: 2rem;
   background-color: #fff;
   border-radius: 1rem;

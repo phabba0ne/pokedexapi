@@ -109,12 +109,32 @@ button {
 
 /* Detail overlay base style */
 #detailOverlay {
+  position: fixed;
+  inset: 0; /* top: 0; left: 0; right: 0; bottom: 0 */
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 2rem; /* Abstand zu den Bildschirmrändern */
+  box-sizing: border-box;
+}
+
+#detailOverlay .overlay-content {
+  background: white;
+  border-radius: 0.5rem;
   padding: 2rem;
-  background-color: #f8f8f8;
-  border-radius: 1rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  max-width: 640px;
-  margin: 2rem auto;
+  width: 100%;
+  max-width: 800px;
+  max-height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* verhindert Scrollbar ohne sie zu verstecken */
 }
 
 /* Tab view placeholder */
