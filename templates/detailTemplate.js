@@ -8,6 +8,8 @@ export class DetailTemplate {
     const paddedId = pokemon.id.toString().padStart(3, '0');
     const flavor = this.extractFlavorText(species);
 
+    
+
     return `
     <div class="detailOverlayInner">
       <article class="detailCard" style="border-color: ${primaryColor}">

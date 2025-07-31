@@ -5,6 +5,7 @@
 
 body.no-scroll {
   overflow: hidden;
+    height: 100dvh;
 }
 
 /* Pokémon Card */
@@ -53,12 +54,14 @@ body.no-scroll {
 }
 
 .typeTag {
-  padding: 0.4rem 0.75rem;
-  border-radius: 0.75rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #fff;
-  text-transform: capitalize;
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  margin: 0.25rem;
+  border-radius: 999px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-transform: uppercase;
 }
 
 /* Spinner container */

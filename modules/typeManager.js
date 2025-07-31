@@ -1,4 +1,3 @@
-
 export class TypeManager {
   static async getTypeOverview() {
     const list = await DataManager.getAllTypes();
@@ -14,6 +13,14 @@ export class TypeManager {
         };
       })
     );
-    return types;
+    const color = GraphicsManager.getTypeColor(t.name);
+    if (!detail?.damage_relations) {
+      console.warn(`No damage_relations found for type: ${t.name}`, detail);
+    }
+    return {
+      name: t.name,
+      color,
+      damageRelations: detail.damage_relations || {},
+    };
   }
 }
