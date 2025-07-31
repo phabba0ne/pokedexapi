@@ -3,20 +3,43 @@ import { GraphicsManager } from "./graphicsManager.js";
 const BASE_URL = "https://pokeapi.co/api/v2/";
 
 export class DataManager {
-  // Core Pokémon
-  static async getAllPokemon(limit = 20, offset = 0) {
-    return await this.fetchJson(`pokemon?limit=${limit}&offset=${offset}`);
+  static #pokemonCache = [];
+
+  // Capitalize utility
+  static capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
+
+  // Generic Fetcher
+  static async fetchJson(endpoint) {
+    try {
+      const res = await fetch(`${BASE_URL}${endpoint}`);
+      if (!res.ok) throw new Error(`Failed to fetch: ${endpoint}`);
+      return await res.json();
+    } catch (err) {
+      console.error(`[DataManager] ${endpoint}: ${err.message}`);
+      return null;
+    }
+  }
+
+  // ----------- Pokémon Core -----------
 
   static async getPokemonByNameOrId(idOrName) {
     return await this.fetchJson(`pokemon/${idOrName}`);
   }
 
-  // Species & Evolution
+static async getAllPokemon(limit = 20, offset = 0) {
+  const response = await this.fetchJson(`pokemon?limit=${limit}&offset=${offset}`);
+  if (!response || !Array.isArray(response.results)) {
+    throw new Error("Invalid response structure from PokéAPI");
+  }
+  return response;
+}
+
+  // ----------- Pokémon Meta -----------
+
   static async getAllSpecies(limit = 20, offset = 0) {
-    return await this.fetchJson(
-      `pokemon-species?limit=${limit}&offset=${offset}`
-    );
+    return await this.fetchJson(`pokemon-species?limit=${limit}&offset=${offset}`);
   }
 
   static async getSpeciesByNameOrId(idOrName) {
@@ -27,7 +50,8 @@ export class DataManager {
     return await this.fetchJson(`evolution-chain/${chainId}`);
   }
 
-  // Types
+  // ----------- Types & Abilities -----------
+
   static async getAllTypes() {
     return await this.fetchJson(`type`);
   }
@@ -36,7 +60,6 @@ export class DataManager {
     return await this.fetchJson(`type/${idOrName}`);
   }
 
-  // Abilities
   static async getAllAbilities(limit = 20, offset = 0) {
     return await this.fetchJson(`ability?limit=${limit}&offset=${offset}`);
   }
@@ -45,7 +68,8 @@ export class DataManager {
     return await this.fetchJson(`ability/${idOrName}`);
   }
 
-  // Moves
+  // ----------- Moves -----------
+
   static async getAllMoves(limit = 20, offset = 0) {
     return await this.fetchJson(`move?limit=${limit}&offset=${offset}`);
   }
@@ -54,51 +78,6 @@ export class DataManager {
     return await this.fetchJson(`move/${idOrName}`);
   }
 
-  // Items
-  static async getAllItems(limit = 20, offset = 0) {
-    return await this.fetchJson(`item?limit=${limit}&offset=${offset}`);
-  }
-
-  static async getItemByNameOrId(idOrName) {
-    return await this.fetchJson(`item/${idOrName}`);
-  }
-
-  // Berries
-  static async getAllBerries(limit = 20, offset = 0) {
-    return await this.fetchJson(`berry?limit=${limit}&offset=${offset}`);
-  }
-
-  static async getBerryByNameOrId(idOrName) {
-    return await this.fetchJson(`berry/${idOrName}`);
-  }
-
-  // Locations
-  static async getAllLocations(limit = 20, offset = 0) {
-    return await this.fetchJson(`location?limit=${limit}&offset=${offset}`);
-  }
-
-  static async getLocationByNameOrId(idOrName) {
-    return await this.fetchJson(`location/${idOrName}`);
-  }
-
-  static async getLocationAreaByNameOrId(idOrName) {
-    return await this.fetchJson(`location-area/${idOrName}`);
-  }
-
-  // Pokedex + Generations + Versions
-  static async getPokedexByNameOrId(idOrName) {
-    return await this.fetchJson(`pokedex/${idOrName}`);
-  }
-
-  static async getGenerationByNameOrId(idOrName) {
-    return await this.fetchJson(`generation/${idOrName}`);
-  }
-
-  static async getVersionByNameOrId(idOrName) {
-    return await this.fetchJson(`version/${idOrName}`);
-  }
-
-  // Move Metadata
   static async getMoveDamageClassByNameOrId(idOrName) {
     return await this.fetchJson(`move-damage-class/${idOrName}`);
   }
@@ -111,53 +90,59 @@ export class DataManager {
     return await this.fetchJson(`move-target/${idOrName}`);
   }
 
-  // Shapes, Habitats
+  // ----------- Items & Berries -----------
+
+  static async getAllItems(limit = 20, offset = 0) {
+    return await this.fetchJson(`item?limit=${limit}&offset=${offset}`);
+  }
+
+  static async getItemByNameOrId(idOrName) {
+    return await this.fetchJson(`item/${idOrName}`);
+  }
+
+  static async getAllBerries(limit = 20, offset = 0) {
+    return await this.fetchJson(`berry?limit=${limit}&offset=${offset}`);
+  }
+
+  static async getBerryByNameOrId(idOrName) {
+    return await this.fetchJson(`berry/${idOrName}`);
+  }
+
+  // ----------- Locations -----------
+
+  static async getAllLocations(limit = 20, offset = 0) {
+    return await this.fetchJson(`location?limit=${limit}&offset=${offset}`);
+  }
+
+  static async getLocationByNameOrId(idOrName) {
+    return await this.fetchJson(`location/${idOrName}`);
+  }
+
+  static async getLocationAreaByNameOrId(idOrName) {
+    return await this.fetchJson(`location-area/${idOrName}`);
+  }
+
+  // ----------- Pokedex, Generations, Versions -----------
+
+  static async getPokedexByNameOrId(idOrName) {
+    return await this.fetchJson(`pokedex/${idOrName}`);
+  }
+
+  static async getGenerationByNameOrId(idOrName) {
+    return await this.fetchJson(`generation/${idOrName}`);
+  }
+
+  static async getVersionByNameOrId(idOrName) {
+    return await this.fetchJson(`version/${idOrName}`);
+  }
+
+  // ----------- Shapes & Habitats -----------
+
   static async getPokemonShapeByNameOrId(idOrName) {
     return await this.fetchJson(`pokemon-shape/${idOrName}`);
   }
 
   static async getPokemonHabitatByNameOrId(idOrName) {
     return await this.fetchJson(`pokemon-habitat/${idOrName}`);
-  }
-
-  static async getPokemonListDetailed(limit = 20, offset = 0) {
-    const list = await this.getAllPokemon(limit, offset);
-    if (!list?.results) return [];
-
-    const detailed = await Promise.all(
-      list.results.map(async ({ name }) => {
-        const data = await this.getPokemonByNameOrId(name);
-        if (!data) return null;
-
-        const types = data.types.map((t) => t.type.name);
-        const primaryType = types[0];
-
-        return {
-          id: data.id,
-          name: this.capitalize(data.name),
-          img: data.sprites.other["official-artwork"].front_default,
-          types,
-          color: GraphicsManager.getTypeColor(primaryType),
-        };
-      })
-    );
-
-    return detailed.filter(Boolean); // remove nulls
-  }
-
-  static capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  // Reusable Fetch Utility
-  static async fetchJson(endpoint) {
-    try {
-      const res = await fetch(`${BASE_URL}${endpoint}`);
-      if (!res.ok) throw new Error(`Failed to fetch: ${endpoint}`);
-      return await res.json();
-    } catch (err) {
-      console.error(`[DataManager] ${endpoint}: ${err.message}`);
-      return null;
-    }
   }
 }
