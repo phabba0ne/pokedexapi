@@ -1,28 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap");
 
 :root {
   --border-radius: 1.25rem;
   --shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  --fontTitle: 'Orbitron', sans-serif;
+  --fontTitle: "Orbitron", sans-serif;
   --card-bg: #fdfdfd;
   --text-main: #1e1e1e;
   --accent-blue: #2a75bb;
 }
 
-/* GENERAL */
 body.no-scroll {
   overflow: hidden;
   height: 100dvh;
   background: #f4f9ff;
   color: var(--text-main);
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 
 .hidden {
   display: none !important;
 }
 
-/* POKÉMON CARD */
 .pokemonCard {
   width: 100%;
   max-width: 300px;
@@ -32,9 +30,7 @@ body.no-scroll {
 
 .tradingCard {
   position: relative;
-  height:40dvh;
-  width:auto;;
-
+  height: 40dvh;
   background: linear-gradient(135deg, #fefefe, #eaf7ff);
   border-radius: var(--border-radius);
   padding: 1.25rem;
@@ -43,11 +39,13 @@ body.no-scroll {
   box-shadow: var(--shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
+  border: 3px solid transparent;
 }
 
 .tradingCard:hover {
   transform: scale(1.04) rotateZ(-0.5deg);
   box-shadow: 0 0 20px rgba(0, 140, 255, 0.3);
+  border-color: var(--main-color, #ccc);
 }
 
 .cardHeader {
@@ -73,14 +71,16 @@ body.no-scroll {
   margin: 0.4rem 0;
 }
 
-.typeBadge {
+.typeBadge,
+.typeTag {
   padding: 0.4rem 0.7rem;
   border-radius: 1rem;
   font-size: 0.8rem;
   font-weight: bold;
   text-transform: uppercase;
   color: white;
-  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  font-family: var(--fontTitle);
 }
 
 .cardStats,
@@ -91,7 +91,6 @@ body.no-scroll {
   color: #333;
 }
 
-/* SHINE ANIMATION */
 .shine {
   position: absolute;
   top: -50%;
@@ -127,20 +126,60 @@ body.no-scroll {
   }
 }
 
-/* DETAIL CARD */
+.legendaryCard .tradingCard {
+  background: radial-gradient(circle at center, #fffbe6, #ffe680);
+  animation: pulseLegendary 3s infinite ease-in-out;
+  box-shadow: 0 0 25px 5px gold;
+}
+
+@keyframes pulseLegendary {
+  0% {
+    box-shadow: 0 0 15px 4px gold;
+  }
+  50% {
+    box-shadow: 0 0 30px 8px rgba(255, 215, 0, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 15px 4px gold;
+  }
+}
+
+.detailOverlayInner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  height: 100dvh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
 .detailCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 640px;
-  height: 100dvh;
+  width: 90%;
   padding: 2rem;
   background: linear-gradient(135deg, #ffffff, #eef6fc);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
-  border: 4px solid;
+  border: 4px solid var(--main-color, #ccc);
   color: var(--text-main);
   text-align: center;
+  font-family: var(--fontTitle);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.detailCard:hover {
+  box-shadow: 0 0 25px 5px var(--main-color, #999);
+  transform: scale(1.01);
 }
 
 .detailCard img {
@@ -149,10 +188,83 @@ body.no-scroll {
   filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.1));
 }
 
+.detailCard::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  transform: rotateZ(25deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.detailCard:hover::after {
+  animation: foilShine 1.2s ease forwards;
+}
+
+@keyframes foilShine {
+  0% {
+    transform: rotateZ(25deg) translate(-100%, -100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotateZ(25deg) translate(100%, 100%);
+    opacity: 0;
+  }
+}
+
+.backButton {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--accent-blue);
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: color 0.2s ease;
+}
+
+.backButton:hover {
+  color: #0077cc;
+}
+
 .flavorText {
   font-style: italic;
   color: #555;
   padding: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.effectiveness {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.effectiveness h3 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  color: var(--accent-blue);
+  font-family: var(--fontTitle);
+}
+
+.effectiveness .typeTags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
 }
 
 .evolutionChain {
@@ -180,47 +292,100 @@ body.no-scroll {
   color: var(--accent-blue);
 }
 
-.noResults {
-  font-size: 1.25rem;
-  color: #666;
-  text-align: center;
-  padding: 2rem;
+[data-type="fire"] {
+  background: #f08030;
+}
+[data-type="water"] {
+  background: #6890f0;
+}
+[data-type="grass"] {
+  background: #78c850;
+}
+[data-type="electric"] {
+  background: #f8d030;
+  color: #222;
+}
+[data-type="ice"] {
+  background: #98d8d8;
+  color: #222;
+}
+[data-type="fighting"] {
+  background: #c03028;
+}
+[data-type="poison"] {
+  background: #a040a0;
+}
+[data-type="ground"] {
+  background: #e0c068;
+  color: #222;
+}
+[data-type="flying"] {
+  background: #a890f0;
+}
+[data-type="psychic"] {
+  background: #f85888;
+}
+[data-type="bug"] {
+  background: #a8b820;
+}
+[data-type="rock"] {
+  background: #b8a038;
+}
+[data-type="ghost"] {
+  background: #705898;
+}
+[data-type="dragon"] {
+  background: #7038f8;
+}
+[data-type="dark"] {
+  background: #705848;
+}
+[data-type="steel"] {
+  background: #b8b8d0;
+  color: #222;
+}
+[data-type="fairy"] {
+  background: #ee99ac;
 }
 
-/* TYPE COLORS */
-.typeBadge[data-type="fire"] { background: #f08030; }
-.typeBadge[data-type="water"] { background: #6890f0; }
-.typeBadge[data-type="grass"] { background: #78c850; }
-.typeBadge[data-type="electric"] { background: #f8d030; color: #222; }
-.typeBadge[data-type="ice"] { background: #98d8d8; color: #222; }
-.typeBadge[data-type="fighting"] { background: #c03028; }
-.typeBadge[data-type="poison"] { background: #a040a0; }
-.typeBadge[data-type="ground"] { background: #e0c068; color: #222; }
-.typeBadge[data-type="flying"] { background: #a890f0; }
-.typeBadge[data-type="psychic"] { background: #f85888; }
-.typeBadge[data-type="bug"] { background: #a8b820; }
-.typeBadge[data-type="rock"] { background: #b8a038; }
-.typeBadge[data-type="ghost"] { background: #705898; }
-.typeBadge[data-type="dragon"] { background: #7038f8; }
-.typeBadge[data-type="dark"] { background: #705848; }
-.typeBadge[data-type="steel"] { background: #b8b8d0; color: #222; }
-.typeBadge[data-type="fairy"] { background: #ee99ac; }
-
-/* LEGENDARY SWAG */
-.legendaryCard .tradingCard {
-  background: radial-gradient(circle at center, #fffbe6, #ffe680);
-  animation: pulseLegendary 3s infinite ease-in-out;
-  box-shadow: 0 0 25px 5px gold;
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  color: white;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
 }
 
-@keyframes pulseLegendary {
-  0% {
-    box-shadow: 0 0 15px 4px gold;
-  }
-  50% {
-    box-shadow: 0 0 30px 8px rgba(255, 215, 0, 0.8);
-  }
-  100% {
-    box-shadow: 0 0 15px 4px gold;
-  }
+.arrow:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.4)
+  );
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrow-left {
+  left: 1rem;
+}
+
+.arrow-right {
+  right: 1rem;
+}
+
+.arrow:hover {
+  box-shadow: 0 0 18px var(--main-color, white);
+}
+
+.detailOverlayInner {
+  position: relative;
 }

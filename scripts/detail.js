@@ -23,7 +23,7 @@ export class Detail {
         evolutionChain
       );
       RenderManager.showDetailView(detailHTML);
- document.body.classList.add("no-scroll");
+      document.body.classList.add("no-scroll");
       this.renderStatsChart(pokemon.stats);
     } catch (err) {
       console.error("[Detail] Failed to show detail view:", err);

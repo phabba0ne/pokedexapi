@@ -1,4 +1,3 @@
-/* Base reset and universal settings */
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +10,7 @@
 html {
   font-size: 16px;
   line-height: 1.5;
-  font-family: 'Open Sans', sans-serif; /* or Pokémon-style font */
+  font-family: 'Open Sans', sans-serif;
 }
 
 body, p, li {
@@ -45,17 +44,14 @@ a:focus {
 .textRight { text-align: right; }
 .textUppercase { text-transform: uppercase; }
 
-/* Utility classes */
 .hidden {
   display: none !important;
 }
 
-/* Image scaling */
 img {
   max-width: 100dvw;
 }
 
-/* Inputs and Buttons */
 input,
 button {
   font-family: inherit;
@@ -64,7 +60,6 @@ button {
   border: none;
 }
 
-/* Card grid layout */
 #cardContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -73,7 +68,7 @@ button {
   width: 100%;
   padding: 2rem 1rem;
 }
-/* Load More button */
+
 #loadMoreButton {
   padding: 0.75rem 1.5rem;
   background-color: #3b4cca;
@@ -90,7 +85,6 @@ button {
   background-color: #2a2f91;
 }
 
-/* Loading Spinner */
 #loadingIndicator {
   margin: 1.5rem auto 0;
   width: 40px;
@@ -107,10 +101,9 @@ button {
   }
 }
 
-/* Detail overlay base style */
 #detailOverlay {
   position: fixed;
-  inset: 0; /* top: 0; left: 0; right: 0; bottom: 0 */
+  inset: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
@@ -118,7 +111,7 @@ button {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 2rem; /* Abstand zu den Bildschirmrändern */
+  padding: 2rem;
   box-sizing: border-box;
 }
 
@@ -134,10 +127,9 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* verhindert Scrollbar ohne sie zu verstecken */
+  overflow: hidden;
 }
 
-/* Tab view placeholder */
 #tabView .content {
   display: flex;
   justify-content: center;

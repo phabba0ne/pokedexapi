@@ -1,23 +1,27 @@
-import { GraphicsManager } from '../modules/graphicsManager.js';
+import { GraphicsManager } from "../modules/graphicsManager.js";
 
 export class DetailTemplate {
   static create(pokemon, species, evolutionChain) {
-    const types = pokemon.types.map(t => t.type.name);
+    const types = pokemon.types.map((t) => t.type.name);
     const primaryColor = GraphicsManager.getTypeColor(types[0]);
     const capitalizedName = this.capitalize(pokemon.name);
-    const paddedId = pokemon.id.toString().padStart(3, '0');
+    const paddedId = pokemon.id.toString().padStart(3, "0");
     const flavor = this.extractFlavorText(species);
 
     return `
       <div class="detailOverlayInner">
+        <div class="arrow arrow-left" id="prevArrow">&#10094;</div>
+        <div class="arrow arrow-right" id="nextArrow">&#10095;</div>
         <article class="detailCard" style="--main-color: ${primaryColor}; border-color: ${primaryColor};">
           <button class="backButton" id="closeDetailBtn">← Back</button>
           <h2>#${paddedId} ${capitalizedName}</h2>
-          <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${capitalizedName}" />
+          <img src="${
+            pokemon.sprites.other["official-artwork"].front_default
+          }" alt="${capitalizedName}" />
           ${this.renderTypes(types)}
           <p class="flavorText mb1">${flavor}</p>
           <canvas id="statsChart" width="320" height="240" aria-label="Stat chart"></canvas>
-          ${evolutionChain ? this.renderEvolution(evolutionChain) : ''}
+          ${evolutionChain ? this.renderEvolution(evolutionChain) : ""}
         </article>
       </div>
     `;
@@ -28,16 +32,25 @@ export class DetailTemplate {
   }
 
   static extractFlavorText(species) {
-    const entry = species.flavor_text_entries?.find(e => e.language.name === 'en');
-    return entry ? entry.flavor_text.replace(/\f/g, ' ') : 'No description available.';
+    const entry = species.flavor_text_entries?.find(
+      (e) => e.language.name === "en"
+    );
+    return entry
+      ? entry.flavor_text.replace(/\f/g, " ")
+      : "No description available.";
   }
 
   static renderTypes(types) {
     return `
       <div class="typeContainer mt1 mb1">
-        ${types.map(type => 
-          `<span class="typeTag" data-type="${type}">${this.capitalize(type)}</span>`
-        ).join('')}
+        ${types
+          .map(
+            (type) =>
+              `<span class="typeTag" data-type="${type}">${this.capitalize(
+                type
+              )}</span>`
+          )
+          .join("")}
       </div>
     `;
   }
@@ -55,9 +68,11 @@ export class DetailTemplate {
       <div class="evolutionChain mt2">
         <h3>Evolution</h3>
         <div class="evoLine">
-          ${evoLine.map(name => 
-            `<div class="evoStage">${this.capitalize(name)}</div>`
-          ).join('<span class="evoArrow">→</span>')}
+          ${evoLine
+            .map(
+              (name) => `<div class="evoStage">${this.capitalize(name)}</div>`
+            )
+            .join('<span class="evoArrow">→</span>')}
         </div>
       </div>
     `;
