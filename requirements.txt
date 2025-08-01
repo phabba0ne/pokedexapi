@@ -1,8 +1,3 @@
-TODO 5c : if detailView active, no scrolling possible
-./scripts/detail.js
-
-TODO 5d : show stats of pokémon (at least hp, attack, defense)
-
 Best practices:
 
 Keep adding .content wrappers inside sections, and all styles will stay clean and predictable.
@@ -25,15 +20,13 @@ Project structure:
 ├── main.js              // App entry point: event listeners, orchestration
 ├── detail.js            // Detail view logic (overlay, stats, evolution)
 ├── fonts.js             // Dynamic font loading
-├── render.js            // DOM rendering using templates
-├── template.js          // Template functions (return HTML strings)
 
 
 /templates/
 ├── template.js          // Templates to create HTML-Elements
+├── detailTemplate.js    // Templates for detail view
 
-/styles/w
-├── fonts.css            // Font loading, fallback styling
+/styles/
 ├── globals.css          // Resets, base layout settings, root variables
 ├── layout.css           // Flexbox layout, main/sections styling
 ├── style.css

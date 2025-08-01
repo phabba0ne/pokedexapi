@@ -8,20 +8,15 @@
 }
 
 html {
-  font-size: 16px;
-  line-height: 1.5;
-  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
 }
 
 body, p, li {
-  font-family: var(--fontBody);
   font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
-  line-height: 1.5;
 }
 
 h1 {
   font-size: clamp(2rem, 1.5rem + 3vw, 4rem);
-  font-family: var(--fontTitle);
   color: #2a75bb;
 }
 
@@ -36,25 +31,16 @@ a:focus {
   text-decoration: underline;
 }
 
-.mt1 { margin-top: 1rem; }
-.mb1 { margin-bottom: 1rem; }
-.mt2 { margin-top: 2rem; }
-.mb2 { margin-bottom: 2rem; }
-.textCenter { text-align: center; }
-.textRight { text-align: right; }
-.textUppercase { text-transform: uppercase; }
-
 .hidden {
   display: none !important;
 }
 
-img {
-  max-width: 100dvw;
+#cardContainer img {
+  max-width: 100%;
 }
 
 input,
 button {
-  font-family: inherit;
   font-size: 1rem;
   outline: none;
   border: none;
@@ -104,15 +90,16 @@ button {
 #detailOverlay {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.75);
   z-index: 1000;
-  padding: 2rem;
-  box-sizing: border-box;
+
+  /* Wichtig: Nichts darf hier überlaufen */
+  overflow: hidden;
 }
 
 #detailOverlay .overlay-content {

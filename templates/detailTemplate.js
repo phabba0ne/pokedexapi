@@ -19,8 +19,8 @@ export class DetailTemplate {
             pokemon.sprites.other["official-artwork"].front_default
           }" alt="${capitalizedName}" />
           ${this.renderTypes(types)}
-          <p class="flavorText mb1">${flavor}</p>
-          <canvas id="statsChart" width="320" height="240" aria-label="Stat chart"></canvas>
+          <p class="flavorText">${flavor}</p>
+          <canvas id="statsChart" aria-label="Stat chart"></canvas>
           ${evolutionChain ? this.renderEvolution(evolutionChain) : ""}
         </article>
       </div>
@@ -42,7 +42,7 @@ export class DetailTemplate {
 
   static renderTypes(types) {
     return `
-      <div class="typeContainer mt1 mb1">
+      <div class="typeContainer">
         ${types
           .map(
             (type) =>
