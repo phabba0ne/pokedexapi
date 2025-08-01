@@ -21,7 +21,7 @@ export class GraphicsManager {
   };
 
   static getTypeColor(typeName) {
-    return this.typeColors[typeName.toLowerCase()] || "#999";
+    return this.typeColors[typeName] || "#999";
   }
 }
 

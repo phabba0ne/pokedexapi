@@ -53,7 +53,7 @@ static async getAllPokemon(limit = 20, offset = 0) {
   // ----------- Types & Abilities -----------
 
   static async getAllTypes() {
-    return await this.fetchJson(`type`);
+    return await this.fetchJson("type");
   }
 
   static async getTypeByNameOrId(idOrName) {

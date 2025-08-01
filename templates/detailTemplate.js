@@ -18,7 +18,6 @@ export class DetailTemplate {
           <img src="${
             pokemon.sprites.other["official-artwork"].front_default
           }" alt="${capitalizedName}" />
-          ${this.renderTypes(types)}
           <p class="flavorText">${flavor}</p>
           <canvas id="statsChart" aria-label="Stat chart"></canvas>
           ${evolutionChain ? this.renderEvolution(evolutionChain) : ""}
@@ -46,9 +45,7 @@ export class DetailTemplate {
         ${types
           .map(
             (type) =>
-              `<span class="typeTag" data-type="${type}">${this.capitalize(
-                type
-              )}</span>`
+              `<span class="typeTag" data-type="${type}">${this.capitalize(type)}</span>`
           )
           .join("")}
       </div>
