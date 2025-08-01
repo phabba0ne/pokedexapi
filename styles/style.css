@@ -282,7 +282,9 @@ body.no-scroll {
   font-size: 1.5rem;
   color: var(--accent-blue);
 }
-
+[data-type="normal"] {
+  background: #A8A77A;
+}
 [data-type="fire"] {
   background: #f08030;
 }
@@ -365,11 +367,11 @@ body.no-scroll {
   transform: translateY(-50%) scale(1.1);
 }
 
-.arrow-left {
+.prevArrow {
   left: 1rem;
 }
 
-.arrow-right {
+.nextArrow {
   right: 1rem;
 }
 

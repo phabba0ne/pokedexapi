@@ -131,3 +131,22 @@ searchInput.addEventListener("input", () => {
   const query = searchInput.value.trim().toLowerCase();
   searchButton.classList.toggle("hidden", query.length < 3);
 });
+
+// Event-Listener setzen
+    document.getElementById("prevArrow")?.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        openPokemonDetail(currentPokemonList[currentIndex]);
+      }
+    });
+
+    document.getElementById("nextArrow")?.addEventListener("click", () => {
+      if (currentIndex < currentPokemonList.length - 1) {
+        currentIndex++;
+        openPokemonDetail(currentPokemonList[currentIndex]);
+      }
+    });
+
+    document.getElementById("closeDetailBtn")?.addEventListener("click", () => {
+      document.querySelector("#detailContainer").innerHTML = "";
+    });

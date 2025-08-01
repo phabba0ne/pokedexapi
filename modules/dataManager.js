@@ -3,7 +3,6 @@ import { GraphicsManager } from "./graphicsManager.js";
 const BASE_URL = "https://pokeapi.co/api/v2/";
 
 export class DataManager {
-  static #pokemonCache = [];
 
   // Capitalize utility
   static capitalize(str) {

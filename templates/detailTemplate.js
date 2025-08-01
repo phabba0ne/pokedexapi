@@ -10,14 +10,13 @@ export class DetailTemplate {
 
     return `
       <div class="detailOverlayInner">
-        <div class="arrow arrow-left" id="prevArrow">&#10094;</div>
-        <div class="arrow arrow-right" id="nextArrow">&#10095;</div>
         <article class="detailCard" style="--main-color: ${primaryColor}; border-color: ${primaryColor};">
-          <button class="backButton" id="closeDetailBtn">← Back</button>
+          <button class="backButton" id="closeDetailBtn">← BACK</button>
           <h2>#${paddedId} ${capitalizedName}</h2>
           <img src="${
             pokemon.sprites.other["official-artwork"].front_default
           }" alt="${capitalizedName}" />
+          ${this.renderTypes(types)}
           <p class="flavorText">${flavor}</p>
           <canvas id="statsChart" aria-label="Stat chart"></canvas>
           ${evolutionChain ? this.renderEvolution(evolutionChain) : ""}
@@ -45,7 +44,9 @@ export class DetailTemplate {
         ${types
           .map(
             (type) =>
-              `<span class="typeTag" data-type="${type}">${this.capitalize(type)}</span>`
+              `<span class="typeTag" data-type="${type}">${this.capitalize(
+                type
+              )}</span>`
           )
           .join("")}
       </div>
