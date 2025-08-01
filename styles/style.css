@@ -22,15 +22,16 @@ body.no-scroll {
 }
 
 .pokemonCard {
-  width: 100%;
-  max-width: 300px;
+
+  max-height:90dvh;
+  max-width: 90dvw;
   perspective: 1000px;
   cursor: pointer;
 }
 
 .tradingCard {
   position: relative;
-  height: 40dvh;
+  height: 50dvh;
   background: linear-gradient(135deg, #fefefe, #eaf7ff);
   border-radius: var(--border-radius);
   padding: 1.25rem;
