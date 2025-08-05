@@ -4,13 +4,19 @@ import { DetailTemplate } from "../templates/detailTemplate.js";
 import { showLoading, hideLoading } from "../modules/graphicsManager.js";
 
 export class Detail {
+  static pokemonList = [];
+  static currentIndex = 0;
+
+  static setPokemonList(list) {
+    this.pokemonList = list;
+  }
+
   static async show(pokemonId) {
     showLoading();
 
     try {
       const pokemon = await DataManager.getPokemonByNameOrId(pokemonId);
       const species = await DataManager.getSpeciesByNameOrId(pokemonId);
-
       const evoUrl = species.evolution_chain?.url;
       const evoId = evoUrl?.split("/").filter(Boolean).pop();
       const evolutionChain = evoId
@@ -22,8 +28,17 @@ export class Detail {
         species,
         evolutionChain
       );
+
       RenderManager.showDetailView(detailHTML);
       document.body.classList.add("no-scroll");
+
+      const index = this.pokemonList.findIndex(
+        (p) => p.name === pokemon.name || p.id === pokemon.id
+      );
+      if (index !== -1) this.currentIndex = index;
+
+      this.attachNavigationEvents();
+
       this.renderStatsChart(pokemon.stats);
     } catch (err) {
       console.error("[Detail] Failed to show detail view:", err);
@@ -63,6 +78,29 @@ export class Detail {
         plugins: { legend: { display: false } },
       },
     });
+  }
+
+  static attachNavigationEvents() {
+    const prevBtn = document.querySelector(".prevButton");
+    const nextBtn = document.querySelector(".nextButton");
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        if (this.currentIndex > 0) {
+          const prevPokemon = this.pokemonList[this.currentIndex - 1];
+          this.show(prevPokemon.name || prevPokemon.id);
+        }
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        if (this.currentIndex < this.pokemonList.length - 1) {
+          const nextPokemon = this.pokemonList[this.currentIndex + 1];
+          this.show(nextPokemon.name || nextPokemon.id);
+        }
+      });
+    }
   }
 
   static formatLabel(label) {

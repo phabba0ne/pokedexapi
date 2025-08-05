@@ -12,6 +12,8 @@ export class DetailTemplate {
       <div class="detailOverlayInner">
         <article class="detailCard" style="--main-color: ${primaryColor}; border-color: ${primaryColor};">
           <button class="backButton" id="closeDetailBtn">← BACK</button>
+          <button class="nextButton"></button>
+          <button class="prevButton"></button>
           <h2>#${paddedId} ${capitalizedName}</h2>
           <img src="${
             pokemon.sprites.other["official-artwork"].front_default
