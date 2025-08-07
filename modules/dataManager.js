@@ -19,7 +19,6 @@ export class DataManager {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  // Generic Fetcher
   static async cachedFetchJson(endpoint) {
     try {
       const res = await fetch(`${BASE_URL}${endpoint}`);
