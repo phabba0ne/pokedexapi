@@ -93,24 +93,14 @@ button {
   animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 #detailOverlay {
   position: fixed;
   inset: 0;
-
+  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background-color: rgba(0, 0, 0, 0.75);
   z-index: 1000;
-
-  /* Wichtig: Nichts darf hier überlaufen */
   overflow: hidden;
 }
 

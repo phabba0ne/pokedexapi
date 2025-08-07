@@ -15,7 +15,6 @@ async function loadAndRenderPokemon() {
       throw new Error("No valid Pokémon list fetched");
     }
 
-    // TODO
     const results = list.results.map((p) => ({
       name: p.name,
       id: p.url.split("/").filter(Boolean).pop(),
@@ -32,7 +31,6 @@ async function loadAndRenderPokemon() {
         return data;
       })
     );
-    // end TODO
 
     detailed
       .filter(Boolean)
@@ -53,7 +51,6 @@ document
 // Initial load
 loadAndRenderPokemon();
 
-//TODO: refac
 document.getElementById("cardContainer").addEventListener("click", (event) => {
   const card = event.target.closest(".pokemonCard");
   if (!card) return;
