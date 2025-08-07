@@ -13,40 +13,45 @@ export class Detail {
 
   static async show(pokemonId) {
     showLoading();
-
     try {
-      const pokemon = await DataManager.getPokemonByNameOrId(pokemonId);
-      const species = await DataManager.getSpeciesByNameOrId(pokemonId);
-      const evoUrl = species.evolution_chain?.url;
-      const evoId = evoUrl?.split("/").filter(Boolean).pop();
-      const evolutionChain = evoId
-        ? await DataManager.getEvolutionChainById(evoId)
-        : null;
+      const [pokemon, species] = await this.fetchPokemonAndSpecies(pokemonId);
+      const evolutionChain = await this.fetchEvolutionChain(species);
 
-      const detailHTML = DetailTemplate.create(
-        pokemon,
-        species,
-        evolutionChain
-      );
-
-      RenderManager.showDetailView(detailHTML);
-      document.body.classList.add("no-scroll");
-
-      const index = this.pokemonList.findIndex(
-        (p) => p.name === pokemon.name || p.id === pokemon.id
-      );
-      if (index !== -1) this.currentIndex = index;
-
+      this.renderDetail(pokemon, species, evolutionChain);
+      this.updateNavigationIndex(pokemon);
       this.attachNavigationEvents();
-
       this.renderStatsChart(pokemon.stats);
     } catch (err) {
       console.error("[Detail] Failed to show detail view:", err);
     } finally {
       hideLoading();
+      this.updateArrowStates();
     }
+  }
 
-    this.updateArrowStates();
+  static async fetchPokemonAndSpecies(id) {
+    const pokemon = await DataManager.getPokemonByNameOrId(id);
+    const species = await DataManager.getSpeciesByNameOrId(id);
+    return [pokemon, species];
+  }
+
+  static async fetchEvolutionChain(species) {
+    const url = species.evolution_chain?.url;
+    const evoId = url?.split("/").filter(Boolean).pop();
+    return evoId ? await DataManager.getEvolutionChainById(evoId) : null;
+  }
+
+  static renderDetail(pokemon, species, evolutionChain) {
+    const detailHTML = DetailTemplate.create(pokemon, species, evolutionChain);
+    RenderManager.showDetailView(detailHTML);
+    document.body.classList.add("no-scroll");
+  }
+
+  static updateNavigationIndex(pokemon) {
+    const index = this.pokemonList.findIndex(
+      (p) => p.name === pokemon.name || p.id === pokemon.id
+    );
+    if (index !== -1) this.currentIndex = index;
   }
 
   static renderStatsChart(stats) {
