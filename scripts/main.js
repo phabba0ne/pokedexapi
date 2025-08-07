@@ -8,33 +8,13 @@ let offset = 0;
 
 async function loadAndRenderPokemon() {
   showLoading();
-
   try {
-    const list = await DataManager.getAllPokemon(limit, offset);
-    if (!list?.results || !Array.isArray(list.results)) {
-      throw new Error("No valid Pokémon list fetched");
-    }
+    const list = await fetchPokemonList();
+    const basicData = extractBasicPokemonData(list);
+    Detail.setPokemonList([...Detail.pokemonList, ...basicData]);
 
-    const results = list.results.map((p) => ({
-      name: p.name,
-      id: p.url.split("/").filter(Boolean).pop(),
-    }));
-
-    Detail.setPokemonList([...Detail.pokemonList, ...results]);
-
-    const detailed = await Promise.all(
-      list.results.map(async (p) => {
-        const data = await DataManager.getPokemonByNameOrId(p.name);
-        if (!data) {
-          console.warn(`[Data] Skipped: ${p.name}`);
-        }
-        return data;
-      })
-    );
-
-    detailed
-      .filter(Boolean)
-      .forEach((pokemon) => RenderManager.renderCard(pokemon));
+    const detailed = await fetchDetailedPokemon(list.results);
+    renderPokemonCards(detailed);
 
     offset += limit;
   } catch (err) {
@@ -42,6 +22,36 @@ async function loadAndRenderPokemon() {
   } finally {
     hideLoading();
   }
+}
+
+async function fetchPokemonList() {
+  const list = await DataManager.getAllPokemon(limit, offset);
+  if (!list?.results || !Array.isArray(list.results)) {
+    throw new Error("No valid Pokémon list fetched");
+  }
+  return list;
+}
+
+function extractBasicPokemonData(list) {
+  return list.results.map((p) => ({
+    name: p.name,
+    id: p.url.split("/").filter(Boolean).pop(),
+  }));
+}
+
+async function fetchDetailedPokemon(results) {
+  const detailed = await Promise.all(
+    results.map(async (p) => {
+      const data = await DataManager.getPokemonByNameOrId(p.name);
+      if (!data) console.warn(`[Data] Skipped: ${p.name}`);
+      return data;
+    })
+  );
+  return detailed.filter(Boolean);
+}
+
+function renderPokemonCards(detailed) {
+  detailed.forEach((pokemon) => RenderManager.renderCard(pokemon));
 }
 
 document
