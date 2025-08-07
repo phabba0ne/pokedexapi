@@ -26,25 +26,32 @@ export class GraphicsManager {
 }
 
 export function showLoading() {
-  let loader = document.getElementById("loadingSpinner");
-  if (!loader) {
-    loader = document.createElement("div");
-    loader.id = "loadingSpinner";
-    loader.className = "spinnerOverlay";
-    loader.setAttribute("aria-busy", "true");
-    loader.setAttribute("aria-live", "polite");
-    loader.setAttribute("role", "status");
-    loader.innerHTML = `<div class="spinner" aria-hidden="true"></div>`;
-    document.body.appendChild(loader);
-  }
+  const loader = getOrCreateLoader();
   loader.classList.remove("hidden");
+  disableLoadButton();
+}
 
+function getOrCreateLoader() {
+  let loader = document.getElementById("loadingSpinner");
+  if (loader) return loader;
+
+  loader = document.createElement("div");
+  loader.id = "loadingSpinner";
+  loader.className = "spinnerOverlay";
+  loader.setAttribute("aria-busy", "true");
+  loader.setAttribute("aria-live", "polite");
+  loader.setAttribute("role", "status");
+  loader.innerHTML = `<div class="spinner" aria-hidden="true"></div>`;
+  document.body.appendChild(loader);
+  return loader;
+}
+
+function disableLoadButton() {
   const button = document.getElementById("loadMoreButton");
-  if (button) {
-    button.disabled = true;
-    button.setAttribute("aria-disabled", "true");
-    button.classList.add("loadingDisabled");
-  }
+  if (!button) return;
+  button.disabled = true;
+  button.setAttribute("aria-disabled", "true");
+  button.classList.add("loadingDisabled");
 }
 
 export function hideLoading() {

@@ -96,21 +96,16 @@ searchInput.addEventListener("input", () => {
   searchButton.classList.toggle("hidden", query.length < 3);
 });
 
-// Search when button is clicked
 searchButton.addEventListener("click", async () => {
   const query = searchInput.value.trim().toLowerCase();
   if (query.length < 3) return;
-
   showLoading();
-
   try {
     const result = await DataManager.getPokemonByNameOrId(query);
     if (!result) {
       alert(`No Pokémon found for "${query}"`);
       return;
     }
-
-    // Clear previous cards and show the new one
     document.getElementById("cardContainer").innerHTML = "";
     RenderManager.renderCard(result);
   } catch (err) {

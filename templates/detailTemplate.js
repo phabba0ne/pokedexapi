@@ -2,22 +2,54 @@ import { GraphicsManager } from "../modules/graphicsManager.js";
 
 export class DetailTemplate {
   static create(pokemon, species, evolutionChain) {
-    const types = pokemon.types.map((t) => t.type.name);
-    const primaryColor = GraphicsManager.getTypeColor(types[0]);
-    const capitalizedName = this.capitalize(pokemon.name);
-    const paddedId = pokemon.id.toString().padStart(3, "0");
+    const types = this.getPokemonTypes(pokemon);
+    const primaryColor = this.getPrimaryColor(types[0]);
+    const name = this.capitalize(pokemon.name);
+    const id = this.getPaddedId(pokemon.id);
     const flavor = this.extractFlavorText(species);
 
+    return this.getDetailTemplate(
+      pokemon,
+      name,
+      id,
+      types,
+      flavor,
+      primaryColor,
+      evolutionChain
+    );
+  }
+
+  static getPokemonTypes(pokemon) {
+    return pokemon.types.map((t) => t.type.name);
+  }
+
+  static getPrimaryColor(type) {
+    return GraphicsManager.getTypeColor(type);
+  }
+
+  static getPaddedId(id) {
+    return id.toString().padStart(3, "0");
+  }
+
+  static getDetailTemplate(
+    pokemon,
+    name,
+    id,
+    types,
+    flavor,
+    color,
+    evolutionChain
+  ) {
     return `
       <div class="detailOverlayInner">
-        <article class="detailCard" style="--main-color: ${primaryColor}; border-color: ${primaryColor};">
+        <article class="detailCard" style="--main-color: ${color}; border-color: ${color};">
           <button class="backButton" id="closeDetailBtn">← BACK</button>
           <button class="prevButton" aria-label="Previous Pokémon">←</button>
           <button class="nextButton" aria-label="Next Pokémon">→</button>
-          <h2>#${paddedId} ${capitalizedName}</h2>
+          <h2>#${id} ${name}</h2>
           <img src="${
             pokemon.sprites.other["official-artwork"].front_default
-          }" alt="${capitalizedName}" />
+          }" alt="${name}" />
           ${this.renderTypes(types)}
           <p class="flavorText">${flavor}</p>
           <canvas id="statsChart" aria-label="Stat chart"></canvas>
@@ -54,27 +86,33 @@ export class DetailTemplate {
       </div>
     `;
   }
-
   static renderEvolution(chain) {
-    const evoLine = [];
+    const names = this.extractEvolutionNames(chain);
+    return this.getEvolutionTemplate(names);
+  }
+
+  static extractEvolutionNames(chain) {
+    const names = [];
     let current = chain.chain;
 
     while (current) {
-      evoLine.push(current.species.name);
-      current = current.evolves_to[0];
+      names.push(current.species.name);
+      current = current.evolves_to?.[0];
     }
 
+    return names;
+  }
+
+  static getEvolutionTemplate(names) {
+    const stages = names
+      .map((name) => `<div class="evoStage">${this.capitalize(name)}</div>`)
+      .join('<span class="evoArrow">→</span>');
+
     return `
-      <div class="evolutionChain mt2">
-        <h3>Evolution</h3>
-        <div class="evoLine">
-          ${evoLine
-            .map(
-              (name) => `<div class="evoStage">${this.capitalize(name)}</div>`
-            )
-            .join('<span class="evoArrow">→</span>')}
-        </div>
-      </div>
-    `;
+    <div class="evolutionChain mt2">
+      <h3>Evolution</h3>
+      <div class="evoLine">${stages}</div>
+    </div>
+  `;
   }
 }
