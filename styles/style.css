@@ -341,45 +341,6 @@ body.no-scroll {
   background: #ee99ac;
 }
 
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2.5rem;
-  color: white;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
-  border: 2px solid white;
-  border-radius: 50%;
-  padding: 0.5rem 0.7rem;
-  cursor: pointer;
-  z-index: 10;
-  user-select: none;
-  transition: background 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-}
-
-.arrow:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.2),
-    rgba(255, 255, 255, 0.4)
-  );
-  transform: translateY(-50%) scale(1.1);
-}
-
-.prevArrow {
-  left: 1rem;
-}
-
-.nextArrow {
-  right: 1rem;
-}
-
-.arrow:hover {
-  box-shadow: 0 0 18px var(--main-color, white);
-}
-
-/* Spinner overlay */
 .spinnerOverlay {
   position: fixed;
   top: 0;
@@ -407,13 +368,32 @@ body.no-scroll {
   to { transform: rotate(360deg); }
 }
 
-/* Hide the spinner when needed */
 .hidden {
   display: none;
 }
 
-/* Optional: style to indicate button is disabled during loading */
 .loadingDisabled {
   opacity: 0.6;
   pointer-events: none;
+}
+
+.prevButton,
+.nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: var(--main-color, #333);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.prevButton {
+  left: 1rem;
+}
+
+.nextButton {
+  right: 1rem;
 }

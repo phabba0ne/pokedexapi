@@ -45,6 +45,8 @@ export class Detail {
     } finally {
       hideLoading();
     }
+
+    this.updateArrowStates();
   }
 
   static renderStatsChart(stats) {
@@ -85,21 +87,11 @@ export class Detail {
     const nextBtn = document.querySelector(".nextButton");
 
     if (prevBtn) {
-      prevBtn.addEventListener("click", () => {
-        if (this.currentIndex > 0) {
-          const prevPokemon = this.pokemonList[this.currentIndex - 1];
-          this.show(prevPokemon.name || prevPokemon.id);
-        }
-      });
+      prevBtn.addEventListener("click", () => this.prev());
     }
 
     if (nextBtn) {
-      nextBtn.addEventListener("click", () => {
-        if (this.currentIndex < this.pokemonList.length - 1) {
-          const nextPokemon = this.pokemonList[this.currentIndex + 1];
-          this.show(nextPokemon.name || nextPokemon.id);
-        }
-      });
+      nextBtn.addEventListener("click", () => this.next());
     }
   }
 
@@ -119,6 +111,36 @@ export class Detail {
         return "SPD";
       default:
         return label.toUpperCase();
+    }
+  }
+
+  static prev() {
+    if (this.currentIndex > 0) {
+      const prevPokemon = this.pokemonList[this.currentIndex - 1];
+      this.show(prevPokemon.name || prevPokemon.id);
+    }
+  }
+
+  static next() {
+    if (this.currentIndex < this.pokemonList.length - 1) {
+      const nextPokemon = this.pokemonList[this.currentIndex + 1];
+      this.show(nextPokemon.name || nextPokemon.id);
+    }
+  }
+
+  static updateArrowStates() {
+    const prevBtn = document.querySelector(".prevButton");
+    const nextBtn = document.querySelector(".nextButton");
+
+    if (prevBtn) {
+      prevBtn.disabled = this.currentIndex <= 0;
+      prevBtn.style.visibility = this.currentIndex <= 0 ? "hidden" : "visible";
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = this.currentIndex >= this.pokemonList.length - 1;
+      nextBtn.style.visibility =
+        this.currentIndex >= this.pokemonList.length - 1 ? "hidden" : "visible";
     }
   }
 }

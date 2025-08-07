@@ -15,6 +15,14 @@ async function loadAndRenderPokemon() {
       throw new Error("No valid Pokémon list fetched");
     }
 
+    // TODO
+    const results = list.results.map((p) => ({
+      name: p.name,
+      id: p.url.split("/").filter(Boolean).pop(),
+    }));
+
+    Detail.setPokemonList([...Detail.pokemonList, ...results]);
+
     const detailed = await Promise.all(
       list.results.map(async (p) => {
         const data = await DataManager.getPokemonByNameOrId(p.name);
@@ -24,6 +32,7 @@ async function loadAndRenderPokemon() {
         return data;
       })
     );
+    // end TODO
 
     detailed
       .filter(Boolean)
@@ -44,6 +53,7 @@ document
 // Initial load
 loadAndRenderPokemon();
 
+//TODO: refac
 document.getElementById("cardContainer").addEventListener("click", (event) => {
   const card = event.target.closest(".pokemonCard");
   if (!card) return;
@@ -103,50 +113,19 @@ searchButton.addEventListener("click", async () => {
   }
 });
 
-searchButton.addEventListener("click", async () => {
-  const query = searchInput.value.trim().toLowerCase();
-  if (query.length < 3) return;
-
-  showLoading();
-
-  try {
-    const result = await DataManager.getPokemonByNameOrId(query);
-
-    if (!result || !result.name) {
-      throw new Error(`No Pokémon found for "${query}"`);
-    }
-
-    // Clear previous cards and show the searched Pokémon
-    document.getElementById("cardContainer").innerHTML = "";
-    RenderManager.renderCard(result);
-  } catch (err) {
-    alert(err.message); // Feedback for 404 or broken query
-    console.warn(`[Search] ${err.message}`);
-  } finally {
-    hideLoading();
-  }
-});
-
 searchInput.addEventListener("input", () => {
   const query = searchInput.value.trim().toLowerCase();
   searchButton.classList.toggle("hidden", query.length < 3);
 });
 
-// Event-Listener setzen
-    document.getElementById("prevArrow")?.addEventListener("click", () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        openPokemonDetail(currentPokemonList[currentIndex]);
-      }
-    });
+document.getElementById("prevArrow")?.addEventListener("click", () => {
+  Detail.prev();
+});
 
-    document.getElementById("nextArrow")?.addEventListener("click", () => {
-      if (currentIndex < currentPokemonList.length - 1) {
-        currentIndex++;
-        openPokemonDetail(currentPokemonList[currentIndex]);
-      }
-    });
+document.getElementById("nextArrow")?.addEventListener("click", () => {
+  Detail.next();
+});
 
-    document.getElementById("closeDetailBtn")?.addEventListener("click", () => {
-      document.querySelector("#detailContainer").innerHTML = "";
-    });
+document.getElementById("closeDetailBtn")?.addEventListener("click", () => {
+  document.querySelector("#detailContainer").innerHTML = "";
+});
