@@ -36,7 +36,6 @@ body.no-scroll {
 }
 
 .tradingCard:hover {
-  transform: scale(1.04) rotateZ(-0.5deg);
   box-shadow: 0 0 20px rgba(0, 140, 255, 0.3);
   border-color: var(--main-color, #ccc);
 }
@@ -172,35 +171,12 @@ body.no-scroll {
 
 .detailCard:hover {
   box-shadow: 0 0 25px 5px var(--main-color, #999);
-  transform: scale(1.01);
 }
 
 .detailCard img {
   max-width: 100%;
   height: auto;
   filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.1));
-}
-
-.detailCard::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.35) 50%,
-    transparent 100%
-  );
-  transform: rotateZ(25deg);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.detailCard:hover::after {
-  animation: foilShine 1.2s ease forwards;
 }
 
 @keyframes foilShine {
