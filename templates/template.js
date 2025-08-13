@@ -41,8 +41,13 @@ function getCardTemplate(pokemon, name, id, types, mainColor, stats, abilities) 
       </div>
       <img src="${pokemon.sprites.other["official-artwork"].front_default}" alt="${name}" class="cardImage" />
       ${getTypeTagsTemplate(types)}
-      ${getCardStatsTemplate(stats)}
-      ${getCardMetaTemplate(pokemon, abilities)}
+      <div class="cardMeta">
+        <p><strong>Height:</strong> ${pokemon.height / 10} m</p>
+      </div>
+      <div class="cardMeta">
+        <p><strong>Weight:</strong> ${pokemon.weight / 10} kg</p>
+        <p><strong>Abilities:</strong> ${abilities}</p>
+      </div>
     </div>
   `;
 }
