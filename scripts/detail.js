@@ -45,6 +45,34 @@ export class Detail {
     const detailHTML = DetailTemplate.create(pokemon, species, evolutionChain);
     RenderManager.showDetailView(detailHTML);
     document.body.classList.add("no-scroll");
+
+    // Initialize tabs after the detail view is in the DOM
+    this.initDetailTabs();
+  }
+
+  static initDetailTabs() {
+    const tabButtons = document.querySelectorAll(".tabBtn");
+    const tabContents = document.querySelectorAll(".tabContent");
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.tab;
+
+        // Deactivate all tabs
+        tabButtons.forEach((b) => b.classList.remove("active"));
+        tabContents.forEach((c) => c.classList.remove("active"));
+
+        // Activate clicked tab
+        btn.classList.add("active");
+        document.getElementById(target).classList.add("active");
+      });
+    });
+
+    // Optionally, activate the first tab by default
+    if (tabButtons.length && tabContents.length) {
+      tabButtons[0].classList.add("active");
+      tabContents[0].classList.add("active");
+    }
   }
 
   static updateNavigationIndex(pokemon) {

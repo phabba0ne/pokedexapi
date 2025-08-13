@@ -94,18 +94,6 @@ body.no-scroll { overflow: hidden; }
   overflow: hidden;
 }
 
-/* -------------------- Detail Overlay -------------------- */
-.detailOverlayInner {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: 1000;
-  padding: 1rem;
-}
-
 .detailCard {
   position: relative;
   display: flex;
@@ -271,6 +259,26 @@ body.no-scroll { overflow: hidden; }
 }
 .prevButton { left: 1rem; }
 .nextButton { right: 1rem; }
+
+.tabContent {
+  display: none;
+}
+
+.tabContent.active {
+  display: block;
+}
+
+.tabBtn.active {
+  font-weight: bold;
+  border-bottom: 2px solid var(--main-color);
+  cursor: default;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
 
 /* -------------------- Media Queries -------------------- */
 
