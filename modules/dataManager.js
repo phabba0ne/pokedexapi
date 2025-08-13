@@ -5,59 +5,45 @@ const BASE_URL = "https://pokeapi.co/api/v2/";
 export class DataManager {
   static cache = new Map();
 
-  static storagePrefix = "pokeapi_";
-
   static async cachedFetchJson(endpoint) {
-    // 1️⃣ Check in-memory cache first
     if (this.cache.has(endpoint)) {
       return this.cache.get(endpoint);
     }
 
-    // 2️⃣ Check localStorage
-    const cached = localStorage.getItem(this.storagePrefix + endpoint);
-    if (cached) {
-      try {
-        const data = JSON.parse(cached);
-        this.cache.set(endpoint, data); // populate in-memory cache
-        return data;
-      } catch (err) {
-        console.warn(`[DataManager] Failed to parse localStorage for ${endpoint}`, err);
-        localStorage.removeItem(this.storagePrefix + endpoint);
-      }
-    }
-
-    // 3️⃣ Fetch from API
-    try {
-      const res = await fetch(`${BASE_URL}${endpoint}`);
-      if (!res.ok) throw new Error(`Failed to fetch: ${endpoint}`);
-      const data = await res.json();
-
-      // Save to caches
-      this.cache.set(endpoint, data);
-      try {
-        localStorage.setItem(this.storagePrefix + endpoint, JSON.stringify(data));
-      } catch (err) {
-        console.warn(`[DataManager] Failed to save ${endpoint} to localStorage`, err);
-      }
-
-      return data;
-    } catch (err) {
-      console.error(`[DataManager] ${endpoint}: ${err.message}`);
-      return null;
-    }
+    const data = await this.fetchJson(endpoint);
+    if (data) this.cache.set(endpoint, data);
+    return data;
   }
 
   static capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
+  static async cachedFetchJson(endpoint) {
+    try {
+      const res = await fetch(`${BASE_URL}${endpoint}`);
+      if (!res.ok) throw new Error(`Failed to fetch: ${endpoint}`);
+      return await res.json();
+    } catch (err) {
+      console.error(`[DataManager] ${endpoint}: ${err.message}`);
+      return null;
+    }
+  }
+
   // ----------- Pokémon Core -----------
+
   static async getPokemonByNameOrId(idOrName) {
     return await this.cachedFetchJson(`pokemon/${idOrName}`);
   }
 
   static async getAllPokemon(limit = 20, offset = 0) {
-    return await this.cachedFetchJson(`pokemon?limit=${limit}&offset=${offset}`);
+    const response = await this.cachedFetchJson(
+      `pokemon?limit=${limit}&offset=${offset}`
+    );
+    if (!response || !Array.isArray(response.results)) {
+      throw new Error("Invalid response structure from PokéAPI");
+    }
+    return response;
   }
 
   // ----------- Pokémon Meta -----------
