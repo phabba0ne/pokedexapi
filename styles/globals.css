@@ -13,18 +13,19 @@ body {
   height: 100%;
   overflow-x: hidden;
   overscroll-behavior: none;
-  margin: 0;
-  padding: 0;
 }
 
 html {
   font-size: 14px;
 }
 
-body,
+body {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
+}
+
 p,
 li {
-  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
+  font-size: inherit;
 }
 
 h1 {
@@ -47,10 +48,12 @@ a:focus {
   display: none !important;
 }
 
-#cardContainer img {
+img {
   max-width: 100%;
+  display: block;
 }
 
+/* ---------- Form Controls ---------- */
 input,
 button {
   font-size: 1rem;
@@ -58,6 +61,7 @@ button {
   border: none;
 }
 
+/* ---------- Card Container ---------- */
 #cardContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -67,6 +71,7 @@ button {
   padding: 2rem 1rem;
 }
 
+/* ---------- Load More Button ---------- */
 #loadMoreButton {
   padding: 0.75rem 1.5rem;
   background-color: #3b4cca;
@@ -74,8 +79,7 @@ button {
   font-size: 1rem;
   border-radius: 0.75rem;
   cursor: pointer;
-  display: block;
-  margin-inline: auto;
+  margin: 0 auto;
   transition: background-color 0.2s ease;
 }
 
@@ -83,6 +87,7 @@ button {
   background-color: #2a2f91;
 }
 
+/* ---------- Loading Spinner ---------- */
 #loadingIndicator {
   margin: 1.5rem auto 0;
   width: 40px;
@@ -93,6 +98,13 @@ button {
   animation: spin 1s linear infinite;
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Detail Overlay ---------- */
 #detailOverlay {
   position: fixed;
   inset: 0;
@@ -114,16 +126,5 @@ button {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  overflow: hidden;
-}
-
-#tabView .content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #888;
-  font-size: clamp(1.1rem, 1rem + 0.6vw, 1.5rem);
-  text-align: center;
 }

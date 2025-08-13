@@ -1,30 +1,49 @@
 import { cardTemplate } from "../templates/template.js";
 
 export class RenderManager {
+  static container = document.getElementById("cardContainer");
+  static overlay = document.getElementById("detailOverlay");
+  static cardView = document.getElementById("cardView");
+  static tabView = document.getElementById("tabView");
+  static detailView = document.getElementById("detailView");
+
+  // ----------------- Cards -----------------
   static renderCard(pokemonData) {
-    const container = document.getElementById("cardContainer");
     const card = cardTemplate(pokemonData);
-    container.appendChild(card);
+    this.container.appendChild(card);
   }
+
+  static renderList(pokemonArray) {
+    this.container.innerHTML = ""; // clear previous cards
+    const fragment = document.createDocumentFragment();
+    pokemonArray.forEach((pokemon) => {
+      fragment.appendChild(cardTemplate(pokemon));
+    });
+    this.container.appendChild(fragment);
+  }
+
+  // ----------------- Detail View -----------------
   static showDetailView(html) {
-    const overlay = document.getElementById("detailOverlay");
-    overlay.innerHTML = html;
-
-    // prevents scrolling when detail view open
+    this.overlay.innerHTML = html;
     document.body.classList.add("lockScroll");
-
-    document.getElementById("cardView")?.classList.add("hidden");
-    document.getElementById("tabView")?.classList.add("hidden");
-    document.getElementById("detailView")?.classList.remove("hidden");
+    this.toggleViews({ showDetail: true });
   }
 
   static hideDetailView() {
-    document.getElementById("detailView")?.classList.add("hidden");
-    document.getElementById("cardView")?.classList.remove("hidden");
+    document.body.classList.remove("lockScroll");
+    this.toggleViews({ showDetail: false });
   }
-  static renderList(pokemonArray) {
-    const container = document.getElementById("cardContainer");
-    container.innerHTML = ""; // clear previous cards
-    pokemonArray.forEach((pokemon) => this.renderCard(pokemon));
+
+  // ----------------- View Helper -----------------
+  static toggleViews({ showDetail }) {
+    if (showDetail) {
+      this.detailView?.classList.remove("hidden");
+      this.cardView?.classList.add("hidden");
+      this.tabView?.classList.add("hidden");
+    } else {
+      this.detailView?.classList.add("hidden");
+      this.cardView?.classList.remove("hidden");
+      this.tabView?.classList.remove("hidden");
+    }
   }
 }

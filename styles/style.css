@@ -1,3 +1,4 @@
+/* -------------------- Fonts & Variables -------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap");
 
 :root {
@@ -9,14 +10,12 @@
   --accent-blue: #2a75bb;
 }
 
-body.no-scroll {
-  overflow: hidden;
-}
+/* -------------------- Utility -------------------- */
+body.no-scroll { overflow: hidden; }
+.hidden { display: none !important; }
+.loadingDisabled { opacity: 0.6; pointer-events: none; }
 
-.hidden {
-  display: none !important;
-}
-
+/* -------------------- Pokemon Card -------------------- */
 .pokemonCard {
   width: 100%;
   max-width: 300px;
@@ -26,16 +25,16 @@ body.no-scroll {
 
 .tradingCard {
   aspect-ratio: 5/7;
-  height: auto;
-  max-height: 50dvh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-   background-color: var(--card-bg);
+  width: 100%;
+  max-height: 50dvh;
+  background-color: var(--card-bg);
   border: 2px solid var(--accent-blue);
   border-radius: var(--border-radius);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
 }
 .tradingCard:hover {
@@ -74,11 +73,7 @@ body.no-scroll {
 }
 
 .cardStats,
-.cardMeta {
-  font-size: 0.8rem;
-  margin-top: 0.5rem;
-  color: #333;
-}
+.cardMeta { font-size: 0.8rem; margin-top: 0.5rem; color: #333; }
 
 .legendaryCard .tradingCard {
   background: radial-gradient(circle at center, #fffbe6, #ffe680);
@@ -86,37 +81,50 @@ body.no-scroll {
   box-shadow: 0 0 25px 5px gold;
 }
 
+/* -------------------- Detail Overlay -------------------- */
 .detailOverlayInner {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0, 0, 0, 0.75);
   z-index: 1000;
   padding: 1rem;
   overflow: hidden;
 }
 
+/* -------------------- Detail Overlay -------------------- */
+.detailOverlayInner {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  padding: 1rem;
+}
+
 .detailCard {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  padding: 1.5rem;
   background: linear-gradient(135deg, #f8f9fa, #e9f0fa);
   border: 4px solid var(--main-color, #aaa);
   border-radius: 1rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  max-height: 90vh;
-  max-width: 600px;
-  width: 100%;
-  padding: 1.5rem;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  box-sizing: border-box;
   color: #333;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-y: auto;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .detailCard:hover {
   box-shadow: 0 0 25px 5px var(--main-color, #999);
   transform: scale(1.01);
@@ -124,7 +132,6 @@ body.no-scroll {
 
 .detailCard h2 {
   font-size: 1.8rem;
-  margin: 0;
   text-align: center;
   color: var(--main-color, #333);
 }
@@ -132,11 +139,11 @@ body.no-scroll {
 .detailCard img {
   width: 50%;
   max-width: 240px;
-  height: auto;
   margin: 0 auto;
   display: block;
 }
 
+/* -------------------- Type Container -------------------- */
 .typeContainer {
   display: flex;
   justify-content: center;
@@ -144,6 +151,7 @@ body.no-scroll {
   gap: 0.5rem;
 }
 
+/* -------------------- Back Button -------------------- */
 .backButton {
   align-self: flex-start;
   background: none;
@@ -155,11 +163,11 @@ body.no-scroll {
   margin-bottom: 1rem;
   transition: color 0.2s ease;
 }
-
 .backButton:hover {
   color: #0077cc;
 }
 
+/* -------------------- Flavor Text -------------------- */
 .flavorText {
   white-space: pre-wrap;
   text-align: center;
@@ -170,24 +178,19 @@ body.no-scroll {
   color: #555;
 }
 
-#statsChart {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
+/* -------------------- Charts & Stats -------------------- */
+#statsChart { width: 100%; max-width: 500px; margin: 0 auto; }
 
 .effectiveness {
   margin-top: 1.5rem;
   text-align: center;
 }
-
 .effectiveness h3 {
   font-size: 1rem;
   margin-bottom: 0.4rem;
   color: var(--accent-blue);
   font-family: var(--fontTitle);
 }
-
 .effectiveness .typeTags {
   display: flex;
   flex-wrap: wrap;
@@ -196,10 +199,8 @@ body.no-scroll {
   margin-bottom: 1rem;
 }
 
-.evolutionChain {
-  margin-top: 1.5rem;
-}
-
+/* -------------------- Evolution Chain -------------------- */
+.evolutionChain { margin-top: 1.5rem; }
 .evoLine {
   display: flex;
   align-items: center;
@@ -207,7 +208,6 @@ body.no-scroll {
   gap: 0.75rem;
   flex-wrap: wrap;
 }
-
 .evoStage {
   padding: 0.5rem 1rem;
   border-radius: 1rem;
@@ -215,84 +215,38 @@ body.no-scroll {
   font-weight: bold;
   text-transform: capitalize;
 }
+.evoArrow { font-size: 1.5rem; color: var(--accent-blue); }
 
-.evoArrow {
-  font-size: 1.5rem;
-  color: var(--accent-blue);
-}
-[data-type="normal"] {
-  background: #a8a77a;
-}
-[data-type="fire"] {
-  background: #f08030;
-}
-[data-type="water"] {
-  background: #6890f0;
-}
-[data-type="grass"] {
-  background: #78c850;
-}
-[data-type="electric"] {
-  background: #f8d030;
-  color: #222;
-}
-[data-type="ice"] {
-  background: #98d8d8;
-  color: #222;
-}
-[data-type="fighting"] {
-  background: #c03028;
-}
-[data-type="poison"] {
-  background: #a040a0;
-}
-[data-type="ground"] {
-  background: #e0c068;
-  color: #222;
-}
-[data-type="flying"] {
-  background: #a890f0;
-}
-[data-type="psychic"] {
-  background: #f85888;
-}
-[data-type="bug"] {
-  background: #a8b820;
-}
-[data-type="rock"] {
-  background: #b8a038;
-}
-[data-type="ghost"] {
-  background: #705898;
-}
-[data-type="dragon"] {
-  background: #7038f8;
-}
-[data-type="dark"] {
-  background: #705848;
-}
-[data-type="steel"] {
-  background: #b8b8d0;
-  color: #222;
-}
-[data-type="fairy"] {
-  background: #ee99ac;
-}
+/* -------------------- Pokemon Types -------------------- */
+[data-type="normal"] { background: #a8a77a; }
+[data-type="fire"] { background: #f08030; }
+[data-type="water"] { background: #6890f0; }
+[data-type="grass"] { background: #78c850; }
+[data-type="electric"] { background: #f8d030; color: #222; }
+[data-type="ice"] { background: #98d8d8; color: #222; }
+[data-type="fighting"] { background: #c03028; }
+[data-type="poison"] { background: #a040a0; }
+[data-type="ground"] { background: #e0c068; color: #222; }
+[data-type="flying"] { background: #a890f0; }
+[data-type="psychic"] { background: #f85888; }
+[data-type="bug"] { background: #a8b820; }
+[data-type="rock"] { background: #b8a038; }
+[data-type="ghost"] { background: #705898; }
+[data-type="dragon"] { background: #7038f8; }
+[data-type="dark"] { background: #705848; }
+[data-type="steel"] { background: #b8b8d0; color: #222; }
+[data-type="fairy"] { background: #ee99ac; }
 
+/* -------------------- Spinner -------------------- */
 .spinnerOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-color: rgba(255, 255, 255, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
 }
-
-/* Spinner element */
 .spinner {
   width: 50px;
   height: 50px;
@@ -301,22 +255,9 @@ body.no-scroll {
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.hidden {
-  display: none;
-}
-
-.loadingDisabled {
-  opacity: 0.6;
-  pointer-events: none;
-}
-
+/* -------------------- Navigation Buttons -------------------- */
 .prevButton,
 .nextButton {
   position: absolute;
@@ -328,11 +269,80 @@ body.no-scroll {
   cursor: pointer;
   z-index: 10;
 }
+.prevButton { left: 1rem; }
+.nextButton { right: 1rem; }
 
-.prevButton {
-  left: 1rem;
+/* -------------------- Media Queries -------------------- */
+
+/* Mobile: up to 480px */
+@media (max-width: 480px) {
+  .tradingCard {
+    max-height: 40dvh;
+    padding: 0.75rem;
+  }
+  .cardHeader { font-size: 1rem; }
+  .cardStats, .cardMeta { font-size: 0.7rem; }
+  .cardImage { max-height: 120px; }
+  .typeBadge, .typeTag { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
+
+  .detailCard {
+    max-width: 95%;
+    max-height: 85vh;
+    padding: 1rem;
+  }
+  .detailCard h2 { font-size: 1.4rem; }
+  .detailCard img { width: 70%; max-width: 180px; }
+
+  .flavorText { font-size: 0.85rem; padding: 0 0.5rem; }
+  #statsChart { max-width: 90%; }
+
+  .evoLine { gap: 0.5rem; }
+  .evoStage { padding: 0.3rem 0.7rem; font-size: 0.8rem; }
+  .evoArrow { font-size: 1.2rem; }
+
+  .prevButton, .nextButton { font-size: 1.5rem; }
 }
 
-.nextButton {
-  right: 1rem;
+/* Tablet: 481px - 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+  .tradingCard { max-height: 45dvh; padding: 1rem; }
+  .cardHeader { font-size: 1.05rem; }
+  .cardStats, .cardMeta { font-size: 0.75rem; }
+  .cardImage { max-height: 140px; }
+  .typeBadge, .typeTag { font-size: 0.75rem; padding: 0.35rem 0.6rem; }
+
+  .detailCard { max-width: 85%; max-height: 88vh; padding: 1.25rem; }
+  .detailCard h2 { font-size: 1.6rem; }
+  .detailCard img { width: 60%; max-width: 200px; }
+
+  .flavorText { font-size: 0.9rem; padding: 0 0.75rem; }
+  #statsChart { max-width: 95%; }
+
+  .evoLine { gap: 0.6rem; }
+  .evoStage { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+  .evoArrow { font-size: 1.35rem; }
+
+  .prevButton, .nextButton { font-size: 1.75rem; }
+}
+
+/* Large screens: 1025px+ */
+@media (min-width: 1025px) {
+  .tradingCard { max-height: 50dvh; padding: 1.25rem; }
+  .cardHeader { font-size: 1.1rem; }
+  .cardStats, .cardMeta { font-size: 0.8rem; }
+  .cardImage { max-height: 160px; }
+  .typeBadge, .typeTag { font-size: 0.8rem; padding: 0.4rem 0.7rem; }
+
+  .detailCard { max-width: 600px; max-height: 90vh; padding: 1.5rem; }
+  .detailCard h2 { font-size: 1.8rem; }
+  .detailCard img { width: 50%; max-width: 240px; }
+
+  .flavorText { font-size: 0.95rem; padding: 0 1rem; }
+  #statsChart { max-width: 500px; }
+
+  .evoLine { gap: 0.75rem; }
+  .evoStage { padding: 0.5rem 1rem; font-size: 1rem; }
+  .evoArrow { font-size: 1.5rem; }
+
+  .prevButton, .nextButton { font-size: 2rem; }
 }

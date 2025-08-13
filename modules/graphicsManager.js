@@ -21,49 +21,64 @@ export class GraphicsManager {
   };
 
   static getTypeColor(typeName) {
-    return this.typeColors[typeName] || "#999";
+    return this.typeColors[typeName] ?? "#999";
+  }
+}
+
+// ----------------- Loader Utilities -----------------
+
+let loaderEl = null;
+let loadButtonEl = null;
+
+function getLoader() {
+  if (loaderEl) return loaderEl;
+
+  loaderEl = document.getElementById("loadingSpinner");
+  if (!loaderEl) {
+    loaderEl = document.createElement("div");
+    loaderEl.id = "loadingSpinner";
+    loaderEl.className = "spinnerOverlay hidden";
+    loaderEl.setAttribute("aria-live", "polite");
+    loaderEl.setAttribute("role", "status");
+    loaderEl.innerHTML = `<div class="spinner" aria-hidden="true"></div>`;
+    document.body.appendChild(loaderEl);
+  }
+  return loaderEl;
+}
+
+function getLoadButton() {
+  if (loadButtonEl) return loadButtonEl;
+  loadButtonEl = document.getElementById("loadMoreButton");
+  return loadButtonEl;
+}
+
+function toggleLoader(show = true) {
+  const loader = getLoader();
+  const button = getLoadButton();
+
+  if (show) {
+    loader.classList.remove("hidden");
+    loader.setAttribute("aria-busy", "true");
+    if (button) {
+      button.disabled = true;
+      button.setAttribute("aria-disabled", "true");
+      button.classList.add("loadingDisabled");
+    }
+  } else {
+    loader.classList.add("hidden");
+    loader.removeAttribute("aria-busy");
+    if (button) {
+      button.disabled = false;
+      button.removeAttribute("aria-disabled");
+      button.classList.remove("loadingDisabled");
+    }
   }
 }
 
 export function showLoading() {
-  const loader = getOrCreateLoader();
-  loader.classList.remove("hidden");
-  disableLoadButton();
-}
-
-function getOrCreateLoader() {
-  let loader = document.getElementById("loadingSpinner");
-  if (loader) return loader;
-
-  loader = document.createElement("div");
-  loader.id = "loadingSpinner";
-  loader.className = "spinnerOverlay";
-  loader.setAttribute("aria-busy", "true");
-  loader.setAttribute("aria-live", "polite");
-  loader.setAttribute("role", "status");
-  loader.innerHTML = `<div class="spinner" aria-hidden="true"></div>`;
-  document.body.appendChild(loader);
-  return loader;
-}
-
-function disableLoadButton() {
-  const button = document.getElementById("loadMoreButton");
-  if (!button) return;
-  button.disabled = true;
-  button.setAttribute("aria-disabled", "true");
-  button.classList.add("loadingDisabled");
+  toggleLoader(true);
 }
 
 export function hideLoading() {
-  const loader = document.getElementById("loadingSpinner");
-  if (loader) {
-    loader.classList.add("hidden");
-    loader.removeAttribute("aria-busy");
-  }
-  const button = document.getElementById("loadMoreButton");
-  if (button) {
-    button.disabled = false;
-    button.removeAttribute("aria-disabled");
-    button.classList.remove("loadingDisabled");
-  }
+  toggleLoader(false);
 }
