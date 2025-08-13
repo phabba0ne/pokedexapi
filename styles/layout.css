@@ -40,9 +40,17 @@ h1 {
 
 #pokemonLogo {
   width: 100%;
+  max-width: 200px;
   height: auto;
   display: block;
   border-radius: 40% 40% 24% 24%;
+  margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  #pokemonLogo {
+    max-width: 140px;
+  }
 }
 
 #searchInput {
