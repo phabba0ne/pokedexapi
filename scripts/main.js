@@ -5,6 +5,7 @@ import { Detail } from "./detail.js";
 
 let limit = 20;
 let offset = 0;
+let allPokemon = []; // cache for search
 
 async function loadAndRenderPokemon() {
   showLoading();
@@ -15,6 +16,9 @@ async function loadAndRenderPokemon() {
 
     const detailed = await fetchDetailedPokemon(list.results);
     renderPokemonCards(detailed);
+
+        // append to the cached array for search
+    allPokemon.push(...detailed);
 
     offset += limit;
   } catch (err) {
@@ -90,22 +94,35 @@ document.getElementById("detailOverlay").addEventListener("click", (event) => {
 const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
 
-// Show button after 3 characters
 searchInput.addEventListener("input", () => {
-  const query = searchInput.value.trim();
+  const query = searchInput.value.trim().toLowerCase();
+
   searchButton.classList.toggle("hidden", query.length < 3);
+
+  if (query.length >= 3) {
+    const filtered = allPokemon.filter(p => p.name.startsWith(query));
+    RenderManager.renderList(filtered);
+  } else {
+    // show all Pokémon if query < 3 letters
+    RenderManager.renderList(allPokemon);
+  }
 });
 
+// Optional: keep button click for full name search
 searchButton.addEventListener("click", async () => {
   const query = searchInput.value.trim().toLowerCase();
   if (query.length < 3) return;
+
   showLoading();
   try {
-    const result = await DataManager.getPokemonByNameOrId(query);
+    // Only attempt API fetch if exact match
+    const result = allPokemon.find(p => p.name === query) || await DataManager.getPokemonByNameOrId(query);
+
     if (!result) {
       alert(`No Pokémon found for "${query}"`);
       return;
     }
+
     document.getElementById("cardContainer").innerHTML = "";
     RenderManager.renderCard(result);
   } catch (err) {
