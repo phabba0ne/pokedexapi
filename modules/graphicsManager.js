@@ -23,6 +23,26 @@ export class GraphicsManager {
   static getTypeColor(typeName) {
     return this.typeColors[typeName] ?? "#999";
   }
+
+  /**
+   * Fügt der Detail-View einen pulsierenden Typ-Glow hinzu
+   * @param {HTMLElement} element - Container für Detail-View
+   * @param {Array} types - Pokémon-Typen [{ type: { name: "fire" } }, ...]
+   */
+  static applyTypeGlow(element, types) {
+    if (!element || !types || !types.length) return;
+
+    const primaryColor = this.getTypeColor(types[0].type.name);
+    if (types.length > 1) {
+      const secondaryColor = this.getTypeColor(types[1].type.name);
+      element.style.background = `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`;
+    } else {
+      element.style.backgroundColor = primaryColor;
+    }
+
+    element.style.setProperty("--type-color", primaryColor);
+    element.classList.add("type-glow");
+  }
 }
 
 // ----------------- Loader Utilities -----------------

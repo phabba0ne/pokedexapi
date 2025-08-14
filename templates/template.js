@@ -32,14 +32,24 @@ export function cardTemplate(pokemon) {
   return card;
 }
 
-function getCardTemplate(pokemon, name, id, types, mainColor, stats, abilities) {
+function getCardTemplate(
+  pokemon,
+  name,
+  id,
+  types,
+  mainColor,
+  stats,
+  abilities
+) {
   return `
     <div class="tradingCard" style="background-color: ${mainColor}20; border: 2px solid ${mainColor}; border-radius: 12px; padding: 1rem; width: 100%; max-width: 300px; box-shadow: 0 0 8px ${mainColor};">
       <div class="cardHeader">
         <h2>${name}</h2>
         <p class="cardId">${id}</p>
       </div>
-      <img src="${pokemon.sprites.other["official-artwork"].front_default}" alt="${name}" class="cardImage" />
+      <img src="${
+        pokemon.sprites.other["official-artwork"].front_default
+      }" alt="${name}" class="cardImage" />
       ${getTypeTagsTemplate(types)}
       <div class="cardMeta">
         <p><strong>Height:</strong> ${pokemon.height / 10} m</p>
@@ -57,7 +67,10 @@ function getTypeTagsTemplate(types) {
     <div class="typeTags">
       ${types
         .map(
-          (t) => `<span class="typeBadge" style="background-color: ${GraphicsManager.getTypeColor(t)};">${t}</span>`
+          (t) =>
+            `<span class="typeBadge" style="background-color: ${GraphicsManager.getTypeColor(
+              t
+            )};">${t}</span>`
         )
         .join("")}
     </div>
@@ -67,9 +80,11 @@ function getTypeTagsTemplate(types) {
 function getCardStatsTemplate(stats) {
   return `
     <div class="cardStats">
-      <p><strong>HP:</strong> ${stats.hp || "??"}</p>
-      <p><strong>ATK:</strong> ${stats.attack || "??"} | <strong>DEF:</strong> ${stats.defense || "??"}</p>
-      <p><strong>SPD:</strong> ${stats.speed || "??"}</p>
+      <p>HP: ${stats.hp || "??"}</p>
+      <p>ATK: ${stats.attack || "??"} | <strong>DEF:</strong> ${
+    stats.defense || "??"
+  }</p>
+      <p>SPD: ${stats.speed || "??"}</p>
     </div>
   `;
 }
@@ -77,9 +92,9 @@ function getCardStatsTemplate(stats) {
 function getCardMetaTemplate(pokemon, abilities) {
   return `
     <div class="cardMeta">
-      <p><strong>Height:</strong> ${pokemon.height / 10} m</p>
-      <p><strong>Weight:</strong> ${pokemon.weight / 10} kg</p>
-      <p><strong>Abilities:</strong> ${abilities}</p>
+      <p>Height: ${pokemon.height / 10} m</p>
+      <p>Weight: ${pokemon.weight / 10} kg</p>
+      <p>Abilities: ${abilities}</p>
     </div>
   `;
 }

@@ -100,8 +100,7 @@ export class DetailTemplate {
       .join('<span class="evoArrow">→</span>');
 
     return `
-      <div class="evolutionChain mt2">
-        <h3>Evolution</h3>
+      <div class="evolutionChain">
         <div class="evoLine">${stages}</div>
       </div>
     `;

@@ -43,7 +43,7 @@ https://pokeapi.co/api/v2/pokemon/{idOrName}
    data for one Pokémon by id or name (stats, types, abilities, sprites)
 
 https://pokeapi.co/api/v2/pokemonSpecies
-   list all Pokémon species (paginated), including egg groups, base stats, flavor text
+   list all Pokémon species (paginated), including egg groups, base , flavor text
 
 https://pokeapi.co/api/v2/pokemonSpecies/{idOrName}
    species details for specific species (evolution chain link, flavor text, habitat)

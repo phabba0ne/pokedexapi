@@ -1,55 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Pokédex</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="./assets/icons/favicon_pokeball.png" type="image/x-icon" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet" />
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="./styles/globals.css" />
   <link rel="stylesheet" href="./styles/layout.css" />
   <link rel="stylesheet" href="./styles/style.css" />
-  <link rel="shortcut icon" href="./assets/icons/favicon_pokeball.png" type="image/x-icon">
 
   <!-- External Libraries -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Press+Start+2P&display=swap"
-    rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
 <body>
-<header>
-  <div id="titleBanner">
-    <img id="pokemonLogo" src="./assets/img/pokemon_banner.jpg" alt="Pokémon Banner" />
-    <h1>Pokédex</h1>
-  </div>
-  <input id="searchInput" type="text" placeholder="Search Pokémon…" />
-  <button id="searchButton" class="hidden">Search</button>
-</header>
-<main>
-  <section id="cardView">
-    <div class="content">
-      <div id="cardContainer" class="cardGrid"></div>
-      <button id="loadMoreButton" class="mt2">Load More</button>
-      <div id="loadingIndicator" class="hidden"></div>
+  <header>
+    <div id="titleBanner">
+      <img id="pokemonLogo" src="./assets/img/pokemon_banner.jpg" alt="Pokémon Banner" />
+      <h1>Pokédex</h1>
     </div>
-  </section>
-
-  <section id="detailView" class="hidden">
-    <div class="content">
-      <div id="detailOverlay"></div>
+    <div class="searchContainer">
+      <label for="searchInput" class="sr-only">Search Pokémon</label>
+      <input id="searchInput" type="search" placeholder="Search Pokémon…" />
+      <button id="searchButton" class="hidden" aria-label="Search Pokémon">Search</button>
     </div>
-  </section>
+  </header>
 
-  <section id="tabView" class="hidden">
-    <div class="content">
-      <div id="typeOverviewContainer"></div>
-    </div>
-  </section>
-</main>
-<footer><a href="https://de.vecteezy.com/gratis-vektor/pok%C3%A9mon">Pokémon Vektoren von Vecteezy</a></footer>
+  <main>
+    <!-- Card View -->
+    <section id="cardView">
+      <div class="content">
+        <div id="cardContainer" class="cardGrid" aria-live="polite"></div>
+        <button id="loadMoreButton">Load More</button>
+        <div id="loadingIndicator" class="hidden" role="status" aria-hidden="true"></div>
+      </div>
+    </section>
 
-<script type="module" src="./scripts/main.js"></script>
+    <!-- Detail View Overlay -->
+    <section id="detailView" class="hidden">
+      <div class="content">
+        <div id="detailOverlay"></div>
+      </div>
+    </section>
+
+    <!-- Tab / Stats View -->
+    <section id="tabView" class="hidden">
+      <div class="content">
+        <div id="typeOverviewContainer"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://de.vecteezy.com/gratis-vektor/pok%C3%A9mon" target="_blank" rel="noopener noreferrer">
+      Pokémon Vektoren von Vecteezy
+    </a>
+  </footer>
+
+  <!-- Main JS -->
+  <script type="module" src="./scripts/main.js" defer></script>
 </body>
-
 </html>

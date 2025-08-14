@@ -16,11 +16,11 @@ export class Detail {
     try {
       const [pokemon, species] = await this.fetchPokemonAndSpecies(pokemonId);
       const evolutionChain = await this.fetchEvolutionChain(species);
-
+      this.renderStatsChart(pokemon.stats);
       this.renderDetail(pokemon, species, evolutionChain);
       this.updateNavigationIndex(pokemon);
       this.attachNavigationEvents();
-      this.renderStatsChart(pokemon.stats);
+
     } catch (err) {
       console.error("[Detail] Failed to show detail view:", err);
     } finally {
