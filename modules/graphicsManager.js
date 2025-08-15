@@ -24,11 +24,6 @@ export class GraphicsManager {
     return this.typeColors[typeName] ?? "#999";
   }
 
-  /**
-   * Fügt der Detail-View einen pulsierenden Typ-Glow hinzu
-   * @param {HTMLElement} element - Container für Detail-View
-   * @param {Array} types - Pokémon-Typen [{ type: { name: "fire" } }, ...]
-   */
   static applyTypeGlow(element, types) {
     if (!element || !types || !types.length) return;
 
@@ -45,8 +40,6 @@ export class GraphicsManager {
   }
 }
 
-// ----------------- Loader Utilities -----------------
-
 let loaderEl = null;
 let loadButtonEl = null;
 
@@ -58,8 +51,8 @@ function getLoader() {
     loaderEl = document.createElement("div");
     loaderEl.id = "loadingSpinner";
     loaderEl.className = "spinnerOverlay hidden";
-    loaderEl.setAttribute("aria-live", "polite");
     loaderEl.setAttribute("role", "status");
+    loaderEl.setAttribute("aria-live", "polite");
     loaderEl.innerHTML = `<div class="spinner" aria-hidden="true"></div>`;
     document.body.appendChild(loaderEl);
   }
@@ -68,37 +61,27 @@ function getLoader() {
 
 function getLoadButton() {
   if (loadButtonEl) return loadButtonEl;
-  loadButtonEl = document.getElementById("loadMoreButton");
-  return loadButtonEl;
+  return (loadButtonEl = document.getElementById("loadMoreButton"));
 }
 
-function toggleLoader(show = true) {
+function setLoaderVisible(show) {
   const loader = getLoader();
+  loader.classList.toggle("hidden", !show);
+  loader.setAttribute("aria-busy", show ? "true" : "false");
+}
+
+function setButtonState(disabled) {
   const button = getLoadButton();
-
-  if (show) {
-    loader.classList.remove("hidden");
-    loader.setAttribute("aria-busy", "true");
-    if (button) {
-      button.disabled = true;
-      button.setAttribute("aria-disabled", "true");
-      button.classList.add("loadingDisabled");
-    }
-  } else {
-    loader.classList.add("hidden");
-    loader.removeAttribute("aria-busy");
-    if (button) {
-      button.disabled = false;
-      button.removeAttribute("aria-disabled");
-      button.classList.remove("loadingDisabled");
-    }
-  }
+  if (!button) return;
+  button.disabled = disabled;
+  button.setAttribute("aria-disabled", disabled ? "true" : "false");
+  button.classList.toggle("loadingDisabled", disabled);
 }
 
-export function showLoading() {
-  toggleLoader(true);
+export function toggleLoader(show = true) {
+  setLoaderVisible(show);
+  setButtonState(show);
 }
 
-export function hideLoading() {
-  toggleLoader(false);
-}
+export const showLoading = () => toggleLoader(true);
+export const hideLoading = () => toggleLoader(false);

@@ -1,5 +1,3 @@
-import { GraphicsManager } from "./graphicsManager.js";
-
 const BASE_URL = "https://pokeapi.co/api/v2/";
 
 export class DataManager {
@@ -30,8 +28,6 @@ export class DataManager {
     }
   }
 
-  // ----------- Pokémon Core -----------
-
   static async getPokemonByNameOrId(idOrName) {
     return await this.cachedFetchJson(`pokemon/${idOrName}`);
   }
@@ -46,8 +42,6 @@ export class DataManager {
     return response;
   }
 
-  // ----------- Pokémon Meta -----------
-
   static async getAllSpecies(limit = 20, offset = 0) {
     return await this.cachedFetchJson(
       `pokemon-species?limit=${limit}&offset=${offset}`
@@ -61,8 +55,6 @@ export class DataManager {
   static async getEvolutionChainById(chainId) {
     return await this.cachedFetchJson(`evolution-chain/${chainId}`);
   }
-
-  // ----------- Types & Abilities -----------
 
   static async getAllTypes() {
     return await this.cachedFetchJson("type");
@@ -79,8 +71,6 @@ export class DataManager {
   static async getAbilityByNameOrId(idOrName) {
     return await this.cachedFetchJson(`ability/${idOrName}`);
   }
-
-  // ----------- Moves -----------
 
   static async getAllMoves(limit = 20, offset = 0) {
     return await this.cachedFetchJson(`move?limit=${limit}&offset=${offset}`);
@@ -102,8 +92,6 @@ export class DataManager {
     return await this.cachedFetchJson(`move-target/${idOrName}`);
   }
 
-  // ----------- Items & Berries -----------
-
   static async getAllItems(limit = 20, offset = 0) {
     return await this.cachedFetchJson(`item?limit=${limit}&offset=${offset}`);
   }
@@ -120,8 +108,6 @@ export class DataManager {
     return await this.cachedFetchJson(`berry/${idOrName}`);
   }
 
-  // ----------- Locations -----------
-
   static async getAllLocations(limit = 20, offset = 0) {
     return await this.cachedFetchJson(`location?limit=${limit}&offset=${offset}`);
   }
@@ -134,8 +120,6 @@ export class DataManager {
     return await this.cachedFetchJson(`location-area/${idOrName}`);
   }
 
-  // ----------- Pokedex, Generations, Versions -----------
-
   static async getPokedexByNameOrId(idOrName) {
     return await this.cachedFetchJson(`pokedex/${idOrName}`);
   }
@@ -147,8 +131,6 @@ export class DataManager {
   static async getVersionByNameOrId(idOrName) {
     return await this.cachedFetchJson(`version/${idOrName}`);
   }
-
-  // ----------- Shapes & Habitats -----------
 
   static async getPokemonShapeByNameOrId(idOrName) {
     return await this.cachedFetchJson(`pokemon-shape/${idOrName}`);
