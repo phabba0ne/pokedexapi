@@ -10,7 +10,7 @@ Built with **HTML5**, **ES Modules**, **CSS3**, and integrated with **Chart.js**
 ## 🔥 Features
 
 - 🔁 Load 20–40 Pokémon cards at a time
-- 🔍 Search Pokémon by name (activated after 3 characters)
+- 🔍  by name (activated after 3 characters)
 - 📊 Show Pokémon stats (HP, Attack, Defense, Evo) using **Chart.js**
 - 🎨 Type-based background colors / hover effects
 - 📱 Responsive layout

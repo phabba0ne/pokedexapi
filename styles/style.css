@@ -11,9 +11,16 @@
 }
 
 /* -------------------- Utility -------------------- */
-body.no-scroll { overflow: hidden; }
-.hidden { display: none !important; }
-.loadingDisabled { opacity: 0.6; pointer-events: none; }
+body.no-scroll {
+  overflow: hidden;
+}
+.hidden {
+  display: none !important;
+}
+.loadingDisabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
 
 /* -------------------- Pokemon Card -------------------- */
 .pokemonCard {
@@ -73,7 +80,11 @@ body.no-scroll { overflow: hidden; }
 }
 
 .cardStats,
-.cardMeta { font-size: 0.8rem; margin-top: 0.5rem; color: #333; }
+.cardMeta {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  color: #333;
+}
 
 .legendaryCard .tradingCard {
   background: radial-gradient(circle at center, #fffbe6, #ffe680);
@@ -91,7 +102,7 @@ body.no-scroll { overflow: hidden; }
   background: rgba(0, 0, 0, 0.75);
   z-index: 1000;
   padding: 1rem;
-  overflow: hidden;
+  overflow: hidden; /* Kein Scrollen im Overlay */
 }
 
 .detailCard {
@@ -99,20 +110,21 @@ body.no-scroll { overflow: hidden; }
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 100%;
+  height: 90dvh;
+  aspect-ratio: 5/7;
   max-width: 600px;
-  max-height: 90vh;
   padding: 1.5rem;
   background: linear-gradient(135deg, #f8f9fa, #e9f0fa);
   border: 4px solid var(--main-color, #aaa);
   border-radius: 1rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   color: #333;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  overflow-y: auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; /* Kein Scrollen in der Karte selbst */
   box-sizing: border-box;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .detailCard:hover {
   box-shadow: 0 0 25px 5px var(--main-color, #999);
   transform: scale(1.01);
@@ -129,6 +141,16 @@ body.no-scroll { overflow: hidden; }
   max-width: 240px;
   margin: 0 auto;
   display: block;
+}
+
+/* Bereich für den Hauptinhalt */
+.detailCardContent {
+  flex: 1; /* Nimmt den verfügbaren Platz */
+  overflow-y: auto; /* Scroll nur hier */
+  scrollbar-width: none; /* Firefox Scrollbar verstecken */
+}
+.detailCardContent::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Edge Scrollbar verstecken */
 }
 
 /* -------------------- Type Container -------------------- */
@@ -150,9 +172,11 @@ body.no-scroll { overflow: hidden; }
   cursor: pointer;
   margin-bottom: 1rem;
   transition: color 0.2s ease;
+  color: var(--main-color);
 }
 .backButton:hover {
-  color: #0077cc;
+  transform: scale(1.05);
+  color: var(--main-color, #555);
 }
 
 /* -------------------- Flavor Text -------------------- */
@@ -167,30 +191,21 @@ body.no-scroll { overflow: hidden; }
 }
 
 /* -------------------- Charts & Stats -------------------- */
-#statsChart { width: 100%; max-width: 500px; margin: 0 auto; }
+#statsChart {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
 
-.effectiveness {
-  margin-top: 1.5rem;
-  text-align: center;
-}
-.effectiveness h3 {
-  font-size: 1rem;
-  margin-bottom: 0.4rem;
-  color: var(--accent-blue);
-  font-family: var(--fontTitle);
-}
-.effectiveness .typeTags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.4rem;
-  margin-bottom: 1rem;
-}
+
 
 /* -------------------- Evolution Chain -------------------- */
-.evolutionChain { margin-top: 1.5rem; }
+.evolutionChain {
+  margin-top: 1.5rem;
+}
 .evoLine {
   display: flex;
+  flex-direction: column ;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
@@ -199,31 +214,74 @@ body.no-scroll { overflow: hidden; }
 .evoStage {
   padding: 0.5rem 1rem;
   border-radius: 1rem;
-  background-color: #ddd;
+  background-color: var(--main-color, #f0f0f0);
   font-weight: bold;
   text-transform: capitalize;
 }
-.evoArrow { font-size: 1.5rem; color: var(--accent-blue); }
+.evoArrow {
+  font-size: 1.5rem;
+  color: var(--main-color, #f0f0f0);
+}
 
 /* -------------------- Pokemon Types -------------------- */
-[data-type="normal"] { background: #a8a77a; }
-[data-type="fire"] { background: #f08030; }
-[data-type="water"] { background: #6890f0; }
-[data-type="grass"] { background: #78c850; }
-[data-type="electric"] { background: #f8d030; color: #222; }
-[data-type="ice"] { background: #98d8d8; color: #222; }
-[data-type="fighting"] { background: #c03028; }
-[data-type="poison"] { background: #a040a0; }
-[data-type="ground"] { background: #e0c068; color: #222; }
-[data-type="flying"] { background: #a890f0; }
-[data-type="psychic"] { background: #f85888; }
-[data-type="bug"] { background: #a8b820; }
-[data-type="rock"] { background: #b8a038; }
-[data-type="ghost"] { background: #705898; }
-[data-type="dragon"] { background: #7038f8; }
-[data-type="dark"] { background: #705848; }
-[data-type="steel"] { background: #b8b8d0; color: #222; }
-[data-type="fairy"] { background: #ee99ac; }
+[data-type="normal"] {
+  background: #a8a77a;
+}
+[data-type="fire"] {
+  background: #f08030;
+}
+[data-type="water"] {
+  background: #6890f0;
+}
+[data-type="grass"] {
+  background: #78c850;
+}
+[data-type="electric"] {
+  background: #f8d030;
+  color: #222;
+}
+[data-type="ice"] {
+  background: #98d8d8;
+  color: #222;
+}
+[data-type="fighting"] {
+  background: #c03028;
+}
+[data-type="poison"] {
+  background: #a040a0;
+}
+[data-type="ground"] {
+  background: #e0c068;
+  color: #222;
+}
+[data-type="flying"] {
+  background: #a890f0;
+}
+[data-type="psychic"] {
+  background: #f85888;
+}
+[data-type="bug"] {
+  background: #a8b820;
+}
+[data-type="rock"] {
+  background: #b8a038;
+}
+[data-type="ghost"] {
+  background: #705898;
+}
+[data-type="dragon"] {
+  background: #7038f8;
+}
+[data-type="dark"] {
+  background: #705848;
+}
+[data-type="steel"] {
+  background: #b8b8d0;
+  color: #222;
+}
+[data-type="fairy"] {
+  background: #ee99ac;
+}
 
 /* -------------------- Spinner -------------------- */
 .spinnerOverlay {
@@ -243,7 +301,11 @@ body.no-scroll { overflow: hidden; }
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* -------------------- Navigation Buttons -------------------- */
 .prevButton,
@@ -257,16 +319,34 @@ body.no-scroll { overflow: hidden; }
   cursor: pointer;
   z-index: 10;
 }
-.prevButton { left: 1rem; }
-.nextButton { right: 1rem; }
+.prevButton {
+  left: 1rem;
+}
+.nextButton {
+  right: 1rem;
+}
 
 .tabContent {
   display: none;
-  height: 50dvh;;
+  min-height: 50dvh;
 }
 
 .tabContent.active {
   display: block;
+}
+
+.tabBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: var(--main-color, #333);
+  cursor: pointer;
+  transition: color 0.2s ease, border-bottom 0.2s ease;
+}
+.tabBtn:hover {
+  color: var(--main-color, #555);
+  border-bottom: 2px solid var(--main-color, #555);
 }
 
 .tabBtn.active {
@@ -281,4 +361,5 @@ body.no-scroll { overflow: hidden; }
   align-items: center;
   gap: 0.5rem;
   margin: 1rem 0;
+  
 }
