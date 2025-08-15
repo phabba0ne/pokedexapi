@@ -49,14 +49,12 @@ export class DetailTemplate {
       <div class="detailOverlayInner">
         <article class="detailCard" style="--main-color: ${primaryColor}; border-color: ${primaryColor};">
           <button class="backButton" id="closeDetailBtn">← BACK</button>
-          <button class="prevButton" aria-label="Previous Pokémon">←</button>
-          <button class="nextButton" aria-label="Next Pokémon">→</button>
-
           <h2>#${id} ${name}</h2>
           <img src="${
             pokemon.sprites.other["official-artwork"].front_default
           }" alt="${name}" />
-
+          <button class="prevButton" aria-label="Previous Pokémon">←</button>
+          <button class="nextButton" aria-label="Next Pokémon">→</button>
           <!-- Tabs -->
           <div class="tabs">
             <button class="tabBtn active" data-tab="types">Types</button>
@@ -68,8 +66,6 @@ export class DetailTemplate {
                 : ""
             }
           </div>
-
-          <!-- Tab Contents -->
           <div class="tabContent active" id="types">
             ${this.renderTypes(types)}
           </div>
@@ -80,7 +76,8 @@ export class DetailTemplate {
             ${this.getCardStatsTemplate(pokemon.stats.reduce((acc, stat) => {
               acc[stat.stat.name] = stat.base_stat;
               return acc;
-            }, {}))}
+            }, {}))} 
+            <hr>
             ${this.getCardMetaTemplate(pokemon, pokemon.abilities
               .map((a) => a.ability.name.replace(/-/g, " "))
               .join(", "))}

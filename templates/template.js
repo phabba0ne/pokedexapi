@@ -53,10 +53,7 @@ function getCardTemplate(
       ${getTypeTagsTemplate(types)}
       <div class="cardMeta">
         <p><strong>Height:</strong> ${pokemon.height / 10} m</p>
-      </div>
-      <div class="cardMeta">
         <p><strong>Weight:</strong> ${pokemon.weight / 10} kg</p>
-        <p><strong>Abilities:</strong> ${abilities}</p>
       </div>
     </div>
   `;
