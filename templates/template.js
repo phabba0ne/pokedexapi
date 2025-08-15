@@ -76,25 +76,3 @@ function getTypeTagsTemplate(types) {
     </div>
   `;
 }
-
-function getCardStatsTemplate(stats) {
-  return `
-    <div class="cardStats">
-      <p>HP: ${stats.hp || "??"}</p>
-      <p>ATK: ${stats.attack || "??"} | <strong>DEF:</strong> ${
-    stats.defense || "??"
-  }</p>
-      <p>SPD: ${stats.speed || "??"}</p>
-    </div>
-  `;
-}
-
-function getCardMetaTemplate(pokemon, abilities) {
-  return `
-    <div class="cardMeta">
-      <p>Height: ${pokemon.height / 10} m</p>
-      <p>Weight: ${pokemon.weight / 10} kg</p>
-      <p>Abilities: ${abilities}</p>
-    </div>
-  `;
-}

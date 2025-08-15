@@ -98,6 +98,8 @@ body.no-scroll {
   font-size: 0.8rem;
   margin-top: 0.5rem;
   color: #333;
+  font-style: bold;
+  text-align: center;
 }
 
 .legendaryCard .tradingCard {

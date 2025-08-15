@@ -31,10 +31,20 @@ export class DetailTemplate {
     const entry = species.flavor_text_entries?.find(
       (e) => e.language.name === "en"
     );
-    return entry ? entry.flavor_text.replace(/\f/g, " ") : "No description available.";
+    return entry
+      ? entry.flavor_text.replace(/\f/g, " ")
+      : "No description available.";
   }
 
-  static getDetailTemplate({ pokemon, name, id, types, flavor, primaryColor, evolutionChain }) {
+  static getDetailTemplate({
+    pokemon,
+    name,
+    id,
+    types,
+    flavor,
+    primaryColor,
+    evolutionChain,
+  }) {
     return `
       <div class="detailOverlayInner">
         <article class="detailCard" style="--main-color: ${primaryColor}; border-color: ${primaryColor};">
@@ -43,14 +53,20 @@ export class DetailTemplate {
           <button class="nextButton" aria-label="Next Pokémon">→</button>
 
           <h2>#${id} ${name}</h2>
-          <img src="${pokemon.sprites.other["official-artwork"].front_default}" alt="${name}" />
+          <img src="${
+            pokemon.sprites.other["official-artwork"].front_default
+          }" alt="${name}" />
 
           <!-- Tabs -->
           <div class="tabs">
             <button class="tabBtn active" data-tab="types">Types</button>
             <button class="tabBtn" data-tab="flavor">Description</button>
             <button class="tabBtn" data-tab="stats">Stats</button>
-            ${evolutionChain ? `<button class="tabBtn" data-tab="evolution">Evolution</button>` : ""}
+            ${
+              evolutionChain
+                ? `<button class="tabBtn" data-tab="evolution">Evolution</button>`
+                : ""
+            }
           </div>
 
           <!-- Tab Contents -->
@@ -61,16 +77,46 @@ export class DetailTemplate {
             <p class="flavorText">${flavor}</p>
           </div>
           <div class="tabContent" id="stats">
-            <canvas id="statsChart" aria-label="Stat chart"></canvas>
+            ${this.getCardStatsTemplate(pokemon.stats.reduce((acc, stat) => {
+              acc[stat.stat.name] = stat.base_stat;
+              return acc;
+            }, {}))}
+            ${this.getCardMetaTemplate(pokemon, pokemon.abilities
+              .map((a) => a.ability.name.replace(/-/g, " "))
+              .join(", "))}
           </div>
           ${
             evolutionChain
-              ? `<div class="tabContent" id="evolution">${this.renderEvolution(evolutionChain)}</div>`
+              ? `<div class="tabContent" id="evolution">${this.renderEvolution(
+                  evolutionChain
+                )}</div>`
               : ""
           }
         </article>
       </div>
     `;
+  }
+
+  static getCardStatsTemplate(stats) {
+    return `
+    <div class="cardStats">
+      <p>HP: ${stats.hp || "??"}</p>
+      <p>ATK: ${stats.attack || "??"} | DEF: ${
+      stats.defense || "??"
+    }</p>
+      <p>SPD: ${stats.speed || "??"}</p>
+    </div>
+  `;
+  }
+
+  static getCardMetaTemplate(pokemon, abilities) {
+    return `
+    <div class="cardMeta">
+      <p>Height: ${pokemon.height / 10} m</p>
+      <p>Weight: ${pokemon.weight / 10} kg</p>
+      <p>Abilities: ${abilities}</p>
+    </div>
+  `;
   }
 
   static renderTypes(types) {
@@ -79,7 +125,9 @@ export class DetailTemplate {
         ${types
           .map(
             (type) =>
-              `<span class="typeTag" data-type="${type}">${this.capitalize(type)}</span>`
+              `<span class="typeTag" data-type="${type}">${this.capitalize(
+                type
+              )}</span>`
           )
           .join("")}
       </div>
