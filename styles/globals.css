@@ -23,11 +23,6 @@ body {
   font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
 }
 
-p,
-li {
-  font-size: inherit;
-}
-
 h1 {
   font-size: clamp(2rem, 1.5rem + 3vw, 4rem);
   color: #2a75bb;
@@ -42,6 +37,12 @@ a {
 a:hover,
 a:focus {
   text-decoration: underline;
+}
+
+p{
+  font-size: clamp(1rem, 0.8rem + 0.5vw, 1.2rem);
+  line-height: 1.6;
+  color: #333;
 }
 
 .hidden {
